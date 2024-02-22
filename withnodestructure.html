@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOChasControl html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -13,6 +13,17 @@
         }
         .player {
             fill: red;
+            stroke: gold;
+            stroke-width: 2;
+        }
+        .connection {
+            stroke: black;
+            stroke-width: 2;
+        }
+        .path {
+            stroke: purple;
+            stroke-width: 4;
+            stroke-dasharray: 5, 5;
         }
         .index-label {
             font-family: Arial, sans-serif;
@@ -21,117 +32,156 @@
             text-anchor: middle;
             dominant-baseline: central;
         }
-        line.connection {
-            stroke: black;
-            stroke-width: 2;
+        .control {
+            fill: purple;
+        }
+        .control-label {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            fill: purple;
+            text-anchor: middle;
+            dominant-baseline: central;
         }
     </style>
 </head>
 <body>
     <svg id="map" width="1000" height="1000"></svg>
-
     <script>
-        // Define the map with nodes and connections
         const mapData = {
-            backgroundImage: "karta1.jpeg",
             nodes: [
-                { id: 1, x: 200, y: 200, index: "1", neighbors: [2, 4, 3] }, 
-                { id: 2, x: 300, y: 200, index: "2", neighbors: [1, 3] },
-                { id: 3, x: 300, y: 100, index: "3", neighbors: [2, 1] }, 
-                { id: 4, x: 100, y: 200, index: "4", neighbors: [1] }
+                { id: 1, x: 200, y: 200, neighbors: [2, 5, 4, 6], hasControl: false },
+                { id: 2, x: 300, y: 200, neighbors: [1, 3, 5], hasControl: false },
+                { id: 3, x: 300, y: 100, neighbors: [2, 15, 14], hasControl: true, controlNumber: 1 },
+                { id: 4, x: 100, y: 200, neighbors: [1], hasControl: true, controlNumber: 2 },
+                { id: 5, x: 250, y: 150, neighbors: [1, 2], hasControl: false },
+                { id: 6, x: 150, y: 100, neighbors: [1, 7], hasControl: false },
+                { id: 7, x: 100, y: 50, neighbors: [6, 8], hasControl: false },
+                { id: 8, x: 50, y: 100, neighbors: [7, 9], hasControl: true, controlNumber: 3 },
+                { id: 9, x: 50, y: 300, neighbors: [8, 10], hasControl: false },
+                { id: 10, x: 100, y: 350, neighbors: [9, 11], hasControl: false },
+                { id: 11, x: 200, y: 300, neighbors: [10, 12], hasControl: false },
+                { id: 12, x: 300, y: 350, neighbors: [11, 13], hasControl: true, controlNumber: 4 },
+                { id: 13, x: 350, y: 300, neighbors: [12, 14], hasControl: false },
+                { id: 14, x: 350, y: 100, neighbors: [13, 15 ,3, 16], hasControl: false },
+                { id: 15, x: 300, y: 50, neighbors: [14, 3], hasControl: false },
+                { id: 16, x: 400, y: 200, neighbors: [14, 17 ], hasControl: false },
+                { id: 17, x: 450, y: 150, neighbors: [16, 18], hasControl: true, controlNumber: 5 },
+                { id: 18, x: 500, y: 200, neighbors: [17, 19], hasControl: false },
+                { id: 19, x: 550, y: 250, neighbors: [18, 20], hasControl: false },
+                { id: 20, x: 600, y: 300, neighbors: [19], hasControl: false },
+                
             ],
-            connections: [
-                { from: 1, to: 2 },
-                { from: 2, to: 3 },
-                { from: 3, to: 1 }, 
-                { from: 1, to: 4 }
-            ],
-            player: { id: "player", x: 100, y: 100, index: "P", neighbors: [1] } 
+            player: {
+                id: "player",
+                x: 200,
+                y: 200,
+                neighbors: [1],
+                path: []
+            },
+            controlsCollected: [],
+            totalControls: 5,
+            nextControlToCollect: 1 // Track the next control number to collect
         };
-      
-        // Render the map
-        const svg = document.getElementById("map");
-      
-        // Add background image
-        const backgroundImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
-        backgroundImage.setAttribute("href", mapData.backgroundImage);
-        backgroundImage.setAttribute("width", "1000");
-        backgroundImage.setAttribute("height", "1000");
-        svg.appendChild(backgroundImage);
 
-      
-        // Add nodes
-        const nodes = new Map(); // Map to store nodes for easy access
-        mapData.nodes.forEach((nodeData) => {
-            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            circle.setAttribute("class", "node");
-            circle.setAttribute("cx", nodeData.x);
-            circle.setAttribute("cy", nodeData.y);
-            circle.setAttribute("r", "10");
-            svg.appendChild(circle);
-            nodes.set(nodeData.id, circle);
-      
-            // Add index label
-            const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            label.setAttribute("class", "index-label");
-            label.setAttribute("x", nodeData.x);
-            label.setAttribute("y", nodeData.y);
-            label.textContent = nodeData.index;
-            svg.appendChild(label);
-        });
-      
-        // Add player
-        const playerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        playerCircle.setAttribute("class", "player");
-        playerCircle.setAttribute("cx", mapData.player.x);
-        playerCircle.setAttribute("cy", mapData.player.y);
-        playerCircle.setAttribute("r", "10");
-        svg.appendChild(playerCircle);
-        nodes.set(mapData.player.id, playerCircle);
-      
-        // Add index label for player
-        const playerLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        playerLabel.setAttribute("class", "index-label");
-        playerLabel.setAttribute("x", mapData.player.x);
-        playerLabel.setAttribute("y", mapData.player.y);
-        playerLabel.textContent = mapData.player.index;
-        svg.appendChild(playerLabel);
-      
-        // Add connections
-        mapData.connections.forEach((connection) => {
-            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line.setAttribute("class", "connection");
-            line.setAttribute("x1", mapData.nodes.find((node) => node.id === connection.from).x);
-            line.setAttribute("y1", mapData.nodes.find((node) => node.id === connection.from).y);
-            line.setAttribute("x2", mapData.nodes.find((node) => node.id === connection.to).x);
-            line.setAttribute("y2", mapData.nodes.find((node) => node.id === connection.to).y);
-            svg.insertBefore(line, svg.firstChild.nextSibling); // Insert after background image
-        });
-      
-        // Function to update player position and neighbors
+        const svg = document.getElementById("map");
+
+        function renderMap() {
+            svg.innerHTML = '';
+
+            // Add background image
+            const backgroundImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+            backgroundImage.setAttribute("href", "karta1.jpeg");
+            backgroundImage.setAttribute("width", "1000");
+            backgroundImage.setAttribute("height", "1000");
+            svg.appendChild(backgroundImage);
+
+            // Add connections
+            const renderedConnections = new Set();
+            mapData.nodes.forEach(node => {
+                node.neighbors.forEach(neighborId => {
+                    const neighbor = mapData.nodes.find(n => n.id === neighborId);
+                    const connectionKey = [node.id, neighborId].sort().join("-");
+                    if (!renderedConnections.has(connectionKey)) {
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute("class", "connection");
+                        line.setAttribute("x1", node.x);
+                        line.setAttribute("y1", node.y);
+                        line.setAttribute("x2", neighbor.x);
+                        line.setAttribute("y2", neighbor.y);
+                        svg.insertBefore(line, svg.firstChild.nextSibling);
+                        renderedConnections.add(connectionKey);
+                    }
+                });
+            });
+
+            // Add nodes and controls
+            mapData.nodes.forEach(node => {
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("class",(node.hasControl === true) && 
+                !(mapData.controlsCollected.includes(node.controlNumber))  ? "control" : "node");
+                circle.setAttribute("cx", node.x);
+                circle.setAttribute("cy", node.y);
+                circle.setAttribute("r", "10");
+                svg.appendChild(circle);
+
+                if (node.hasControl === true) {
+                    const controlLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    controlLabel.setAttribute("class", "control-label");
+                    controlLabel.setAttribute("x", node.x + 15);
+                    controlLabel.setAttribute("y", node.y - 10);
+                    controlLabel.textContent = node.controlNumber;
+                    svg.appendChild(controlLabel);
+                }
+
+                // Add index label for nodes
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("class", "index-label");
+                label.setAttribute("x", node.x);
+                label.setAttribute("y", node.y);
+                if (mapData.player.neighbors.includes(node.id)) {
+                    label.textContent = mapData.player.neighbors.indexOf(node.id) + 1;
+                }
+                svg.appendChild(label);
+            });
+
+            // Add player
+            const playerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            playerCircle.setAttribute("class", "player");
+            playerCircle.setAttribute("cx", mapData.player.x);
+            playerCircle.setAttribute("cy", mapData.player.y);
+            playerCircle.setAttribute("r", "10");
+            svg.appendChild(playerCircle);
+        }
+
         function updatePlayerPosition(newNodeId) {
             const newNode = mapData.nodes.find((node) => node.id === newNodeId);
-            // Update SVG display
-            nodes.get("player").setAttribute("cx", newNode.x);
-            nodes.get("player").setAttribute("cy", newNode.y);
-      
-            // Update player data
             mapData.player.x = newNode.x;
             mapData.player.y = newNode.y;
             mapData.player.neighbors = newNode.neighbors;
+            mapData.player.path.push(newNodeId);
+
+            if (newNode.hasControl === true && newNode.controlNumber === mapData.nextControlToCollect) {
+                mapData.controlsCollected.push(newNode.controlNumber);
+                mapData.nextControlToCollect++;
+            }
+
+            if (mapData.controlsCollected.length === mapData.totalControls) {
+                alert("Game completed! Path taken: " + mapData.player.path.join(", "));
+            }
+
+            renderMap();
         }
-      
 
-        // Event listener for keyboard inputs
         document.addEventListener("keydown", (event) => {
-            const key = event.key.toUpperCase(); // Convert to uppercase for consistency
-            const targetNode = mapData.nodes.find((node) => node.index === key);
-
-            if (targetNode && mapData.player.neighbors.includes(targetNode.id)) {
-                // Check if the target node exists and is a neighbor
-                updatePlayerPosition(targetNode.id);
+            const key = event.key;
+            const targetIndex = parseInt(key) - 1;
+            const targetNodeId = mapData.player.neighbors[targetIndex];
+            if (targetNodeId !== undefined) {
+                updatePlayerPosition(targetNodeId);
             }
         });
+
+        renderMap();
     </script>
 </body>
 </html>
