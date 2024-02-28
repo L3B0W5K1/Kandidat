@@ -1,4 +1,4 @@
-export class Graph {
+class Graph {
     adjacencyList;
     constructor() {
       this.adjacencyList = {};
