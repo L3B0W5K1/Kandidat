@@ -1,8 +1,12 @@
+import Graph from './graph.js'
+
 const mapImage = new Image();
 mapImage.src = "images/karta1.jpeg";
 
-export class MapData {
+
+class MapData {
    constructor(jsonGraph = null) {
+
 
     this.mapImage = new Image();
     this.mapImage.src = "images/karta1.jpeg";
@@ -11,9 +15,9 @@ export class MapData {
     if (jsonGraph != null) {     
       this.loadJSON(jsonGraph);
     }
-    /*
-    this.controlNodes = { 3: 1, 4: 2, 8: 3, 12: 4, 17: 5 };
-    */
+    
+    this.controls= { 3: 1, 4: 2, 8: 3, 12: 4, 17: 5 };
+    
   }
 
   async loadJSON(jsonGraph) {
@@ -27,7 +31,6 @@ export class MapData {
             })
             .then(jsonData => {
                 this.statGraph.adjacencyList = jsonData;
-                console.log(`graph in mapData : ${this.statGraph}`);
                 resolve();
             })
             .catch(error => {
@@ -37,24 +40,18 @@ export class MapData {
     });
 }
 
- 
-  /* async loadJSON(jsonGraph) {
-    let promise = new Promise()
-    try{
-      const response = await fetch(jsonGraph)
+calculateShortest() {
+  const path = this.statGraph.findShortestPath(this.controls);
 
-      if (!response.ok) {
-        throw new Error('Failed to laod the json-File');
-      }
-      const jsonData = await response.json();
-      this.statGraph.adjacencyList = jsonData;
-      console.log(this.statGraph);
-    } catch(error) {
-      console.log('Error loading the JSON-file: ', error);
-    }
-  }
-*/
+  return path;
+}
+
+getControls(){
+  return this.controls;
+}
   getGraph() {
     return this.statGraph;
   }
 }
+
+export default MapData;
