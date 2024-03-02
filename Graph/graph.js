@@ -8,10 +8,10 @@ class Graph {
         const nodeId = node.nodeId;
       if (this.adjacencyList[nodeId] === undefined) {
         this.adjacencyList[nodeId] = {
-            posX: node.posX,
-            posY: node.posY,
-            nodeId, nodeId,
-            edges: []
+          nodeId, nodeId,  
+          posX: node.posX,
+          posY: node.posY,
+          edges: []
         };
       }
     }
@@ -20,11 +20,18 @@ class Graph {
       this.adjacencyList[node1.nodeId].edges.push({ nodeId: node2.nodeId, weight });
       this.adjacencyList[node2.nodeId].edges.push({ nodeId: node1.nodeId, weight });
     }
+
+    getNeighbours(nodeId) {
+      return this.adjacencyList[nodeId].edges
+    }
+
+
 }
 export class Node {
     constructor(posX, posY, nodeId) {
-        this.posX = posX;
-        this.posY = posY;
-        this.nodeId = nodeId;
+      this.nodeId = nodeId;  
+      this.posX = posX;
+      this.posY = posY;
+        
     }
 }
