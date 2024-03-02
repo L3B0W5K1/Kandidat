@@ -86,7 +86,7 @@ class View {
   }
 
   //Display the shortest path from the start node of the course
-  // to the last control node. 
+  // to the last control node.
   showShortest(path) {
     for (let i = 0; i < path.length - 1; i++) {
       let currentId = path[i];

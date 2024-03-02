@@ -17,8 +17,8 @@ class Controller {
     this.save = document.getElementById("save");
     this.shortest = document.getElementById("shortest");
 
-    this.save.addEventListener('click', this.handleSave.bind(this))
-    this.shortest.addEventListener('click', this.handleShortest.bind(this));
+    this.save.addEventListener("click", this.handleSave.bind(this));
+    this.shortest.addEventListener("click", this.handleShortest.bind(this));
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
     canvas.addEventListener("mouseup", this.handleMouseup.bind(this));
@@ -27,9 +27,8 @@ class Controller {
   // Handle the event of the user clicking "show shortest path button"
   handleShortest() {
     const path = this.mapData.calculateShortest();
-    this.view.showShortest(path)
+    this.view.showShortest(path);
   }
-
 
   //Handle the event of the user clicking the "save" button.
   // This will saved the currently displayed graph.
@@ -69,15 +68,13 @@ class Controller {
       (this.mouseDownX - mouseUpX) ** 2 + (this.mouseDownY - mouseUpY) ** 2
     );
 
-    // if the user has barely moved the mouse, then we create a node. 
+    // if the user has barely moved the mouse, then we create a node.
     if (distance < 2) {
-        
-        this.id++;
-        this.graph.addNode(this.id, this.mouseDownX, this.mouseDownY);
-      
+      this.id++;
+      this.graph.addNode(this.id, this.mouseDownX, this.mouseDownY);
 
-    // else we will create an edge. 
-    // To determin which nodes we will use the findNodeAtPosition() function.
+      // else we will create an edge.
+      // To determin which nodes we will use the findNodeAtPosition() function.
     } else {
       this.startNode = this.findNodeAtPosition(
         this.mouseDownX,

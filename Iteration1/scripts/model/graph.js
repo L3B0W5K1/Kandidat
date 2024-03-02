@@ -33,7 +33,7 @@ class Graph {
       };
     }
 
-   /* if (this.contains(startId)) {
+    /* if (this.contains(startId)) {
       for (const neighId of Object.values(neighbours)) {
         if (this.contains(neighId)) {
           const neighNode = this.getNode(neighId).node;
@@ -49,72 +49,65 @@ class Graph {
 
   //Checks if the nodeId is a key in the adjacencyList
   contains(nodeId) {
-    return  this.adjacencyList[nodeId] != undefined;
+    return this.adjacencyList[nodeId] != undefined;
   }
 
   // Finds the shortest between two nodes.
-  // The two nodes will either be one start node of the course or 
+  // The two nodes will either be one start node of the course or
   // a control node.
   findSegment(startId, destId) {
+    let distances = {};
+    let prev = {};
+    let visited = new Set();
+    let pq = [];
 
-    let distances  = {};
-    let prev      = {};
-    let visited   = new Set();
-    let pq        = []; 
-
-    for (const [id,node] of Object.entries(this.adjacencyList)) {
-    
+    for (const [id, node] of Object.entries(this.adjacencyList)) {
       distances[node.node.id] = node.node.id === startId ? 0 : Infinity;
-      pq.push({id : node.node.id, dist: distances[node.node.id]});
+      pq.push({ id: node.node.id, dist: distances[node.node.id] });
       prev[node.node.id] = null;
     }
-  
 
     pq.sort((a, b) => a.dist - b.dist);
 
-    while(pq.length !== 0) {
-      let {id} = pq.shift(); //Get the node with the smallest distance
+    while (pq.length !== 0) {
+      let { id } = pq.shift(); //Get the node with the smallest distance
       visited.add(id);
 
       let node = this.getNode(id);
 
       if (id === destId) break;
       for (const neighbour of Object.values(node.edges)) {
-
         let alt = distances[node.node.id] + neighbour.weight;
 
         if (alt < distances[neighbour.node.id]) {
           distances[neighbour.node.id] = alt;
           prev[neighbour.node.id] = node.node.id;
-          pq.push({id : neighbour.node.id, dist: alt});
-          pq.sort((a,b) => a.dist - b.dist);
+          pq.push({ id: neighbour.node.id, dist: alt });
+          pq.sort((a, b) => a.dist - b.dist);
         }
       }
-    
     }
 
     //Reconstruct the path from start to end
 
     let path = [];
-    for( let at = destId; at !== null; at = prev[at]) {
+    for (let at = destId; at !== null; at = prev[at]) {
       path.push(at);
     }
     path.reverse();
 
     return path.length > 0 ? path : null;
-
   }
 
   // Finds the shortest path from the start node of the course to
-  // all the control nodes. 
+  // all the control nodes.
   findShortestPath(controls) {
-
     let startNodeId = this.adjacencyList[1].node.id;
     let path = [startNodeId];
-    let currentStart = startNodeId; 
+    let currentStart = startNodeId;
 
     let controlList = Object.entries(controls);
-    controlList.sort((a,b) => a[1] - b[1]);
+    controlList.sort((a, b) => a[1] - b[1]);
 
     let sortedControls = Object.fromEntries(controlList);
 
@@ -122,17 +115,17 @@ class Graph {
       const numericId = parseInt(id);
       let segment = this.findSegment(currentStart, numericId);
       if (segment) {
-        if(segment.length === 1) {
+        if (segment.length === 1) {
           path = path.concat(segment);
         } else {
-        path = path.concat(segment.slice(1));
+          path = path.concat(segment.slice(1));
         }
         currentStart = numericId;
       }
     }
 
     return path;
-  } 
+  }
 
   //returns the edges list of the node with nodeId
   getNeighbours(nodeId) {
@@ -153,7 +146,7 @@ class Graph {
 
   // Returns the order of the graph/ how many nodes there are.
   getOrder() {
-    return Object.keys(this.adjacencyList).length
+    return Object.keys(this.adjacencyList).length;
   }
 }
 
