@@ -66,7 +66,19 @@ class View {
 
   // To render the entire graph onto the canvas.
   render() {
-    this.ctx.drawImage(this.image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // Use the image's natural size for 1:1 scaling
+    this.ctx.drawImage(
+      this.image,
+      0,
+      0,
+      this.image.naturalWidth,
+      this.image.naturalHeight
+    );
+
+    // If the canvas size needs to be adjusted to the image size, uncomment the following lines:
+    // canvas.width = this.image.naturalWidth;
+    // canvas.height = this.image.naturalHeight;
+
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
       this.drawNode(node.node);
     }
