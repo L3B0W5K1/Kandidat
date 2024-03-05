@@ -32,19 +32,6 @@ class Graph {
         weight,
       };
     }
-
-    /* if (this.contains(startId)) {
-      for (const neighId of Object.values(neighbours)) {
-        if (this.contains(neighId)) {
-          const neighNode = this.getNode(neighId).node;
-          this.adjacencyList[startId].edges[neighId] = {};
-          this.adjacencyList[startId].edges[neighId] = {
-            node: neighNode,
-            weight,
-          };
-        }
-      }
-    }*/
   }
 
   //Checks if the nodeId is a key in the adjacencyList

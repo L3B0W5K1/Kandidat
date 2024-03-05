@@ -1,15 +1,38 @@
 const NODE_RADIUS = 10;
-const CANVAS_WIDTH = (canvas.width = 900);
-const CANVAS_HEIGHT = (canvas.height = 900);
 
-class View {
-  constructor(image, graph, ctx, controls) {
+class EditView {
+  constructor(image, graph, controls) {
     this.image = image;
     this.graph = graph;
-    this.ctx = ctx;
     this.controls = controls;
 
-    this.render();
+    this.menuContainer = document.createElement("div");
+    this.menuContainer.classList.add("menu-container");
+
+    this.save = document.createElement("button");
+    this.save.textContent = "Save";
+    this.save.classList.add("menu-button");
+
+    this.shortest = document.createElement("button");
+    this.shortest.textContent = "Show Shortest Path";
+    this.shortest.classList.add("menu-button");
+
+    this.menuContainer.appendChild(this.save);
+    this.menuContainer.appendChild(this.shortest);
+
+    this.canvas = document.createElement("canvas");
+    this.canvas.id = "canvas";
+    this.canvas.width = 900;
+    this.canvas.height = 900;
+    this.canvas.style.border = "5px solid black";
+    this.canvas.style.position = "absolute";
+    this.canvas.style.top = "50%";
+    this.canvas.style.left = "50%";
+    this.canvas.style.transform = "translate(-50%,-50%)";
+    this.ctx = this.canvas.getContext("2d");
+
+    // Append canvas to document body or any other container
+    document.body.appendChild(this.canvas);
   }
 
   // Draw the given node onto the canvas.
@@ -66,7 +89,17 @@ class View {
 
   // To render the entire graph onto the canvas.
   render() {
-    this.ctx.drawImage(this.image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    document.body.appendChild(this.menuContainer);
+    this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
+
+    /*  this.ctx.drawImage(
+      this.image,
+      0,
+      0,
+      this.image.naturalWidth,
+      this.image.naturalHeight
+    );
+*/
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
       this.drawNode(node.node);
     }
@@ -107,4 +140,4 @@ class View {
   }
 }
 
-export default View;
+export default EditView;

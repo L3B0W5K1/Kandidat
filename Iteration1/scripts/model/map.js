@@ -4,14 +4,10 @@ const mapImage = new Image();
 mapImage.src = "images/karta1.jpeg";
 
 class MapData {
-  constructor(jsonGraph = null) {
-    this.mapImage = new Image();
-    this.mapImage.src = "images/karta1.jpeg";
+  constructor(image) {
+    this.image = image;
 
     this.statGraph = new Graph();
-    if (jsonGraph != null) {
-      this.loadJSON(jsonGraph);
-    }
 
     this.controls = { 3: 1, 4: 2, 8: 3, 12: 4, 17: 5 };
   }

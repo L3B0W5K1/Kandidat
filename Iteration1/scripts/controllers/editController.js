@@ -1,9 +1,11 @@
-class Controller {
-  constructor(graph, canvas, view, mapData) {
-    this.graph = graph;
-    this.canvas = canvas;
+class EditController {
+  constructor(mapData, view) {
     this.view = view;
+
+    this.canvas = this.view.canvas;
+
     this.mapData = mapData;
+    this.graph = this.mapData.getGraph();
 
     this.id = this.graph.getOrder();
     this.addEdge = false;
@@ -14,9 +16,12 @@ class Controller {
     this.mouseDownX = null;
     this.mouseDownY = null;
 
+    this.save = this.view.save;
+    this.shortest = this.view.shortest;
+    /*
     this.save = document.getElementById("save");
     this.shortest = document.getElementById("shortest");
-
+*/
     this.save.addEventListener("click", this.handleSave.bind(this));
     this.shortest.addEventListener("click", this.handleShortest.bind(this));
 
@@ -110,4 +115,4 @@ class Controller {
   }
 }
 
-export default Controller;
+export default EditController;
