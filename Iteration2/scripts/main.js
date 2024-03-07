@@ -1,6 +1,6 @@
 import MapData from "./model/map.js";
-import View from "./views/view.js";
-import Controller from "./controllers/controller.js";
+import View from "./view/view.js";
+import Controller from "./controller/controller.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");

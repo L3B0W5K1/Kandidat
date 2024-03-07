@@ -3,5 +3,7 @@ version: "3"
 services:
   kandidat:
     build: .
+    volumes:
+      - ./Iteration2:/usr/share/nginx/html
     ports:
-      - "3000:3000"
+      - "80:80"

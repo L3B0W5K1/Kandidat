@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  kandidat:
+    image: ghcr.io/L3B0W5K1/kandidat:latest
+    ports:
+      - "80:80"
