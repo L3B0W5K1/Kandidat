@@ -1,9 +1,10 @@
 class Controller {
-  constructor(graph, canvas, view, mapData) {
+  constructor(graph, canvas, view, mapData, player) {
     this.graph = graph;
     this.canvas = canvas;
     this.view = view;
     this.mapData = mapData;
+    this.player = player;
 
     this.id = this.graph.getOrder();
     this.addEdge = false;
