@@ -3,14 +3,25 @@ const CANVAS_WIDTH = (canvas.width = 900);
 const CANVAS_HEIGHT = (canvas.height = 900);
 
 class View {
-  constructor(image, graph, ctx, controls) {
+  constructor(image, graph, ctx, controls, player ) {
     this.image = image;
     this.graph = graph;
     this.ctx = ctx;
     this.controls = controls;
+    this.player = player;
 
     this.render();
   }
+
+  
+drawPlayer(node) {
+  // Draw the player with a distinct color or shape at node's position
+  this.ctx.beginPath();
+  this.ctx.arc(node.posX, node.posY, NODE_RADIUS / 2, 0, Math.PI * 2);
+  this.ctx.fillStyle = "red"; // Example color
+  this.ctx.fill();
+  this.ctx.closePath();
+}
 
   // Draw the given node onto the canvas.
   drawNode(node) {
@@ -70,7 +81,9 @@ class View {
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
       this.drawNode(node.node);
     }
-
+    // Ensure player drawing is after the nodes have been drawn
+    this.drawPlayer(this.graph.getNode(this.player.getCurrentNodeId()).node);
+    
     for (const startNode of Object.values(this.graph.adjacencyList)) {
       for (const neighbour of Object.values(startNode.edges)) {
         this.drawEdge(
@@ -84,6 +97,7 @@ class View {
       }
     }
   }
+  
 
   //Display the shortest path from the start node of the course
   // to the last control node.
