@@ -36,11 +36,32 @@ class PlayerView   {
 
     }
 
-        update({startNode, playerNode, image, controlNodes, completed, shortestPath}) {
+    renderpath(path) {
+        for(const [order, node] of Object.entries(path)) {
+
+            if(path[parseInt(order) + 1]) {
+    
+              let nextNode = path[parseInt(order) + 1].node;
+    
+              this.ctx.beginPath();
+              this.ctx.moveTo(node.node.posX, node.node.posY);
+              this.ctx.lineTo(nextNode.posX, nextNode.posY);
+              this.ctx.strokeStyle = 'red'
+              this.ctx.stroke();
+              this.ctx.closePath();
+            }
+    
+          }
+    }
+
+        update({startNode, playerNode, image, controlNodes, completed, shortestPath, playerPath}) {
             
             this.renderNeighbours(playerNode);
             this.renderPlayer(playerNode);
 
+            if(completed) {
+            this.renderpath(playerPath);
+            }
 
         }
 }

@@ -150,7 +150,7 @@ class GameView {
     }
     
     // update function which is called from the observerable.
-    update({startNode, playerNode, image, controlNodes, completed, shortestPath}) {
+    update({startNode, playerNode, image, controlNodes, completed, shortestPath, playerPath}) {
 
         this.ctx.clearRect(0, 0,this.canvas.width, this.canvas.height);
         this.canvas.width = image.naturalWidth;

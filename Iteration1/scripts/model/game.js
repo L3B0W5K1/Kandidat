@@ -17,7 +17,8 @@ class Game  {
         image : null,
         controlNodes : {},
         completed : false,
-        shortestPath : null
+        shortestPath : null,
+        playerPath : null,
     };
 
 
@@ -71,6 +72,7 @@ class Game  {
         if(this.takenControls === Object.keys(this.mapData.getControlNodes()).length) {
           this.gameState.completed = true; 
           this.gameState.shortestPath = this.mapData.calculateShortest();
+          this.gameState.playerPath = this.player.getPath();
         }
       }
 
