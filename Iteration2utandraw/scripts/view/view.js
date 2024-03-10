@@ -10,8 +10,23 @@ class View {
     this.controls = controls;
     this.player = player;
 
+
+
     this.render();
   }
+
+  displayCollectedControls(collectedControls) {
+    const startX = 20; // Margin from the left edge
+    const startY = 20; // Margin from the top edge
+    this.ctx.font = '16px Arial';
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText('Collected Controls:', startX + 50, startY);
+
+    // Display each collected control
+    collectedControls.forEach((controlId, index) => {
+        this.ctx.fillText(`Control ${index + 1}`, startX + 20, startY + 20 * (index + 1));
+    });
+}
 
   
 drawPlayer(node) {
@@ -34,7 +49,7 @@ drawPlayer(node) {
     this.ctx.closePath();
 
     // Draw the number text in white color
-    if (node.id in this.controls) {
+    if ((node.id in this.controls && !this.player.collectedControls.includes(node.id))) {
       this.ctx.fillStyle = "white";
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
@@ -84,6 +99,8 @@ drawPlayer(node) {
     // Ensure player drawing is after the nodes have been drawn
     this.drawPlayer(this.graph.getNode(this.player.getCurrentNodeId()).node);
     
+    this.displayCollectedControls(this.player.collectedControls);
+
     for (const startNode of Object.values(this.graph.adjacencyList)) {
       for (const neighbour of Object.values(startNode.edges)) {
         this.drawEdge(

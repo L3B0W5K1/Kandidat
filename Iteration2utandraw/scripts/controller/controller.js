@@ -70,6 +70,7 @@ class Controller {
     const mouseUpX = event.clientX - rect.left;
     const mouseUpY = event.clientY - rect.top;
   
+    
     // Find if there's a node at the click position
     const clickedNode = this.findNodeAtPosition(mouseUpX, mouseUpY);
     

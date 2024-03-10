@@ -16,7 +16,7 @@ const mapData = new MapData();
 await mapData.loadJSON(jsonGraph);
 
 const startNodeId = 1;
-const player = new Player(startNodeId); // Choose the startNodeId accordingly
+const player = new Player(startNodeId,mapData.getControls()); // Choose the startNodeId accordingly
 
 const view = new View(
   mapData.mapImage,
