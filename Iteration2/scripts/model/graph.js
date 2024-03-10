@@ -18,13 +18,6 @@ class Graph {
     }
   }
 
-  // Inside Graph class
-
-isNeighbour(startNodeId, endNodeId) {
-  return this.adjacencyList[startNodeId] && this.adjacencyList[startNodeId].edges[endNodeId] !== undefined;
-}
-
-
   // First checks wether the start node exists or not.
   // Then, traverses the list of edges and checks if the
   //neighbour exists. If both exists, an edge from start node

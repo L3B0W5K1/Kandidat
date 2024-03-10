@@ -1,10 +1,9 @@
 class Controller {
-  constructor(graph, canvas, view, mapData, player) {
+  constructor(graph, canvas, view, mapData) {
     this.graph = graph;
     this.canvas = canvas;
     this.view = view;
     this.mapData = mapData;
-    this.player = player;
 
     this.id = this.graph.getOrder();
     this.addEdge = false;
@@ -55,37 +54,11 @@ class Controller {
     this.mouseDownY = event.clientY - rect.top;
   }
 
-  
-  
-  
   // Fires when the user realeases the mouse button.
   // It keeps track of the distance that the user has
   // moved the mouse when pushing it down.
   // The distance will determin if the user wants to
   // create a node or an edge between two nodes.
-
-  
-  handleMouseup(event) { // kod för att flytta player
-    const rect = this.canvas.getBoundingClientRect();
-    const mouseUpX = event.clientX - rect.left;
-    const mouseUpY = event.clientY - rect.top;
-  
-    // Find if there's a node at the click position
-    const clickedNode = this.findNodeAtPosition(mouseUpX, mouseUpY);
-    
-    // Check if clickedNode is a neighbour of the player's currentNode
-    if (clickedNode && this.graph.isNeighbour(this.player.getCurrentNodeId(), clickedNode.id)) {
-      // Move player to the clicked node if it's a neighbour
-      this.player.moveToNode(this.graph, clickedNode.id);
-    } else {
-      // Optionally handle the case where the click is not on a neighbouring node
-      // For example, you could ignore the click or provide feedback to the user
-    }
-  
-    this.updateView();
-  }
-  
-  /* KOD FÖR ATT MÅLA MANUELLT
   handleMouseup(event) {
     const rect = this.canvas.getBoundingClientRect();
     const mouseUpX = event.clientX - rect.left;
@@ -115,7 +88,6 @@ class Controller {
     }
     this.updateView();
   }
-  */
 
   // we find the node by checking if the user has pushed down/ realeased
   // the mouse inside the radius of any node in the graph.

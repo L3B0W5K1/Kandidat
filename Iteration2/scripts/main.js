@@ -1,7 +1,6 @@
 import MapData from "./model/map.js";
 import View from "./view/view.js";
 import Controller from "./controller/controller.js";
-import Player from "./model/player.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -15,18 +14,10 @@ const jsonGraph = "graphs/standardGraph.json";
 const mapData = new MapData();
 await mapData.loadJSON(jsonGraph);
 
-const startNodeId = 1;
-const player = new Player(startNodeId); // Choose the startNodeId accordingly
-
 const view = new View(
   mapData.mapImage,
   mapData.getGraph(),
   ctx,
-  mapData.getControls(),
-  player
+  mapData.getControls()
 );
-
-
-const controller = new Controller(mapData.statGraph, canvas, view, mapData, player);
-
-
+const controller = new Controller(mapData.statGraph, canvas, view, mapData);
