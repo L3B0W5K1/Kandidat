@@ -11,8 +11,10 @@ class MenuView {
     this.editButton.textContent = "Edit Mode";
     this.editButton.classList.add("menu-button");
 
+
     this.menuContainer.appendChild(this.playButton);
     this.menuContainer.appendChild(this.editButton);
+    this.menuContainer.appendChild(this.playButton);
   }
 
   render() {

@@ -9,7 +9,7 @@ class MapData {
 
     this.statGraph = new Graph();
 
-    this.controls = { 3: 1, 4: 2, 8: 3, 12: 4, 17: 5 };
+    this.controls = {10: 1, 20: 2, 30: 3, 37: 4, 70: 5, 101 : 6, 88 : 7 }
   }
 
   async loadJSON(jsonGraph) {
@@ -32,6 +32,10 @@ class MapData {
     });
   }
 
+  addControl(nodeID, controlNum) {
+    this.controls[nodeID] = controlNum;
+  }
+
   calculateShortest() {
     const path = this.statGraph.findShortestPath(this.controls);
 
@@ -43,6 +47,19 @@ class MapData {
   }
   getGraph() {
     return this.statGraph;
+  }
+
+  getControlNodes(){
+    const nodes = {}
+    Object.entries(this.controls).forEach(([nodeID, controlN]) => {
+      nodes[controlN] = this.statGraph.getNode(nodeID)
+    });
+        
+  return nodes;
+  }
+
+  getNode(nodeID) {
+    return this.statGraph.getNode(nodeID);
   }
 }
 

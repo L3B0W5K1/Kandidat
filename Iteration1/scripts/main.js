@@ -1,13 +1,13 @@
 import MapData from "./model/map.js";
 import EditView from "./views/editView.js";
 import EditController from "./controllers/editController.js";
-
+import Game from "./model/game.js"
 import MenuView from "./views/menuView.js";
 import MenuController from "./controllers/menuController.js";
 
 const GAME_STATE = {
   MENU: "menu",
-  PLAYING: "playing",
+  PLAY: "play",
   EDIT: "edit",
   KILL: "kill",
 };
@@ -74,9 +74,14 @@ class Main {
         );
         this.controller = new EditController(this.mapDatas[0], this.view);
         break;
+      case GAME_STATE.PLAY:
+          this.constroller=null;
+          this.view=null;
+          const game = new Game();
     }
+    if(this.currentState !== GAME_STATE.PLAY) {
     this.lastState = this.currentState;
-    this.view.render();
+    this.view.render();}
   }
 
   switchState(state) {

@@ -18,6 +18,11 @@ class EditController {
 
     this.save = this.view.save;
     this.shortest = this.view.shortest;
+
+    this.controlN = 1;
+    this.controlNodes = {};
+
+
     /*
     this.save = document.getElementById("save");
     this.shortest = document.getElementById("shortest");
@@ -55,8 +60,8 @@ class EditController {
   // Fires when the user pushes down the mouse button.
   handleMouseDown(event) {
     const rect = this.canvas.getBoundingClientRect();
-    this.mouseDownX = event.clientX - rect.left;
-    this.mouseDownY = event.clientY - rect.top;
+    this.mouseDownX = event.clientX - rect.left-5;
+    this.mouseDownY = event.clientY - rect.top-5;
   }
 
   // Fires when the user realeases the mouse button.
@@ -66,8 +71,8 @@ class EditController {
   // create a node or an edge between two nodes.
   handleMouseup(event) {
     const rect = this.canvas.getBoundingClientRect();
-    const mouseUpX = event.clientX - rect.left;
-    const mouseUpY = event.clientY - rect.top;
+    const mouseUpX = event.clientX - rect.left-5;
+    const mouseUpY = event.clientY - rect.top-5;
 
     const distance = Math.sqrt(
       (this.mouseDownX - mouseUpX) ** 2 + (this.mouseDownY - mouseUpY) ** 2
@@ -75,8 +80,17 @@ class EditController {
 
     // if the user has barely moved the mouse, then we create a node.
     if (distance < 2) {
+      
+      let nodeAtPos = this.findNodeAtPosition(mouseUpX,mouseUpY);
+      if(nodeAtPos !== null) {
+        this.controlNodes[nodeAtPos.id] = this.controlN;
+        this.mapData.addControl(nodeAtPos.id, this.controlN)
+        this.controlN += 1;
+      } else{
       this.id++;
       this.graph.addNode(this.id, this.mouseDownX, this.mouseDownY);
+      }
+      
 
       // else we will create an edge.
       // To determin which nodes we will use the findNodeAtPosition() function.
@@ -88,8 +102,8 @@ class EditController {
 
       this.destNode = this.findNodeAtPosition(mouseUpX, mouseUpY);
       if (this.startNode && this.destNode !== this.startNode) {
-        this.graph.addEdge(this.startNode.id, this.destNode.id, 1);
-      }
+        this.graph.addEdge(this.startNode.id, this.destNode.id, distance);
+      } 
     }
     this.updateView();
   }
@@ -102,7 +116,7 @@ class EditController {
     for (const [id, nodeData] of Object.entries(this.graph.adjacencyList)) {
       const node = nodeData.node;
       const distance = Math.sqrt((node.posX - x) ** 2 + (node.posY - y) ** 2);
-      if (distance <= 10) {
+      if (distance <= 5) {
         return node;
       }
     }

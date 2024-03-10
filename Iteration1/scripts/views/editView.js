@@ -1,4 +1,4 @@
-const NODE_RADIUS = 10;
+const NODE_RADIUS = 5;
 
 class EditView {
   constructor(image, graph, controls) {
@@ -22,8 +22,8 @@ class EditView {
 
     this.canvas = document.createElement("canvas");
     this.canvas.id = "canvas";
-    this.canvas.width = 900;
-    this.canvas.height = 900;
+    this.canvas.width = this.image.naturalWidth;
+    this.canvas.height = this.image.naturalHeight;
     this.canvas.style.border = "5px solid black";
     this.canvas.style.position = "absolute";
     this.canvas.style.top = "50%";
@@ -56,7 +56,6 @@ class EditView {
   }
 
   // Draw the edge between src and dest node with the given color.
-  // The weight will be displayed ontop of the edge.
   drawEdge(srcX, srcY, destX, destY, weight, color) {
     const angle = Math.atan2(destY - srcY, destX - srcX);
 
@@ -78,28 +77,28 @@ class EditView {
     this.ctx.closePath();
 
     // Display the weight
-    const textX = (startX + endX) / 2;
+   /* const textX = (startX + endX) / 2;
     const textY = (startY + endY) / 2;
     this.ctx.fillStyle = "black";
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.font = "20px Arial";
     this.ctx.fillText(weight, textX, textY);
+    */
   }
 
   // To render the entire graph onto the canvas.
   render() {
     document.body.appendChild(this.menuContainer);
-    this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
 
-    /*  this.ctx.drawImage(
+      this.ctx.drawImage(
       this.image,
       0,
       0,
       this.image.naturalWidth,
       this.image.naturalHeight
     );
-*/
+
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
       this.drawNode(node.node);
     }

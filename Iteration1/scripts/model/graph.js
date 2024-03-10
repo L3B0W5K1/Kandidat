@@ -39,6 +39,35 @@ class Graph {
     return this.adjacencyList[nodeId] != undefined;
   }
 
+  moveToNode(currentNode, posX,posY) {
+    let deltaX = null;
+    let deltaY = null;
+    let distance = Infinity;
+    let newDistance = null;
+    let nextNode = null;
+
+    for (const neighbour of Object.values(currentNode.edges)) {
+       deltaX = neighbour.node.posX - posX;
+       deltaY = neighbour.node.posY - posY;
+       newDistance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+       if(newDistance > 15) {
+        continue;
+       }
+
+       if(newDistance <= distance){
+          distance = newDistance;
+          nextNode = neighbour;
+       }
+
+    }
+    if(nextNode !== null) {
+      let newNode = this.getNode(nextNode.node.id)
+      return newNode;
+    }
+    return null;
+  }
+
   // Finds the shortest between two nodes.
   // The two nodes will either be one start node of the course or
   // a control node.
@@ -79,7 +108,8 @@ class Graph {
 
     let path = [];
     for (let at = destId; at !== null; at = prev[at]) {
-      path.push(at);
+      let node = this.getNode(at);
+      path.push(node);
     }
     path.reverse();
 
@@ -110,7 +140,8 @@ class Graph {
         currentStart = numericId;
       }
     }
-
+    
+    path[parseInt(0)] = this.getNode(startNodeId);
     return path;
   }
 
