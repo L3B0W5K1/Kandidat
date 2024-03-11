@@ -59,10 +59,9 @@ class Graph {
         distance = newDistance;
         nextNode = neighbour;
       }
-
     }
     if (nextNode !== null) {
-      let newNode = this.getNode(nextNode.node.id)
+      let newNode = this.getNode(nextNode.node.id);
       return newNode;
     }
     return null;

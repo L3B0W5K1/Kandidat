@@ -1,7 +1,7 @@
 import MapData from "./model/map.js";
 import EditView from "./views/editView.js";
 import EditController from "./controllers/editController.js";
-import Game from "./model/game.js"
+import Game from "./model/game.js";
 import MenuView from "./views/menuView.js";
 import MenuController from "./controllers/menuController.js";
 

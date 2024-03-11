@@ -22,7 +22,6 @@ class EditController {
     this.controlN = 1;
     this.controlNodes = {};
 
-
     /*
     this.save = document.getElementById("save");
     this.shortest = document.getElementById("shortest");
@@ -80,17 +79,15 @@ class EditController {
 
     // if the user has barely moved the mouse, then we create a node.
     if (distance < 2) {
-
       let nodeAtPos = this.findNodeAtPosition(mouseUpX, mouseUpY);
       if (nodeAtPos !== null) {
         this.controlNodes[nodeAtPos.id] = this.controlN;
-        this.mapData.addControl(nodeAtPos.id, this.controlN)
+        this.mapData.addControl(nodeAtPos.id, this.controlN);
         this.controlN += 1;
       } else {
         this.id++;
         this.graph.addNode(this.id, this.mouseDownX, this.mouseDownY);
       }
-
 
       // else we will create an edge.
       // To determin which nodes we will use the findNodeAtPosition() function.

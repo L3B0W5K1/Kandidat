@@ -5,9 +5,7 @@ class Player {
     this.path = [this.currentNode];
   }
 
-
   move(posX, posY) {
-
     let nextNode = this.graph.moveToNode(this.currentNode, posX, posY);
 
     if (nextNode !== null) {
