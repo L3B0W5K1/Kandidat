@@ -75,13 +75,14 @@ class Main {
         this.controller = new EditController(this.mapDatas[0], this.view);
         break;
       case GAME_STATE.PLAY:
-          this.constroller=null;
-          this.view=null;
-          const game = new Game();
+        this.constroller = null;
+        this.view = null;
+        const game = new Game();
     }
-    if(this.currentState !== GAME_STATE.PLAY) {
-    this.lastState = this.currentState;
-    this.view.render();}
+    if (this.currentState !== GAME_STATE.PLAY) {
+      this.lastState = this.currentState;
+      this.view.render();
+    }
   }
 
   switchState(state) {

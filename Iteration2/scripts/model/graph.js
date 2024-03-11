@@ -39,7 +39,7 @@ class Graph {
     return this.adjacencyList[nodeId] != undefined;
   }
 
-  moveToNode(currentNode, posX,posY) {
+  moveToNode(currentNode, posX, posY) {
     let deltaX = null;
     let deltaY = null;
     let distance = Infinity;
@@ -47,21 +47,21 @@ class Graph {
     let nextNode = null;
 
     for (const neighbour of Object.values(currentNode.edges)) {
-       deltaX = neighbour.node.posX - posX;
-       deltaY = neighbour.node.posY - posY;
-       newDistance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+      deltaX = neighbour.node.posX - posX;
+      deltaY = neighbour.node.posY - posY;
+      newDistance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
-       if(newDistance > 15) {
+      if (newDistance > 15) {
         continue;
-       }
+      }
 
-       if(newDistance <= distance){
-          distance = newDistance;
-          nextNode = neighbour;
-       }
+      if (newDistance <= distance) {
+        distance = newDistance;
+        nextNode = neighbour;
+      }
 
     }
-    if(nextNode !== null) {
+    if (nextNode !== null) {
       let newNode = this.getNode(nextNode.node.id)
       return newNode;
     }
@@ -140,7 +140,7 @@ class Graph {
         currentStart = numericId;
       }
     }
-    
+
     path[parseInt(0)] = this.getNode(startNodeId);
     return path;
   }

@@ -5,28 +5,28 @@ import PlayerController from "../controllers/playerController.js"
 import GameView from "../views/gameView.js"
 import PlayerView from "../views/playerView.js"
 
-class Game  {
+class Game {
 
-    constructor(map) {
+  constructor(map) {
 
     this.observers = new Observable();
-    
+
     this.gameState = {
-        startNode : null,
-        playerNode : null,
-        image : null,
-        controlNodes : {},
-        completed : false,
-        shortestPath : null,
-        playerPath : null,
+      startNode: null,
+      playerNode: null,
+      image: null,
+      controlNodes: {},
+      completed: false,
+      shortestPath: null,
+      playerPath: null,
     };
 
 
 
-    this.jsonGraphPaths = ["graphs/standardGraph.json"];   
+    this.jsonGraphPaths = ["graphs/standardGraph.json"];
     this.imagePaths = ["images/karta1.jpeg"];
     this.mapData = null;
-    
+
     this.view = new GameView(this);
     this.controller = new PlayerController(this);
     this.playerView = new PlayerView(this);
@@ -36,62 +36,62 @@ class Game  {
 
     this.initcourse();
 
-}
+  }
 
 
-  async  initcourse() {
-        //if(map === 1) {
-            this.image = new Image();
-            this.image.src = this.imagePaths[0];
-            this.mapData = new MapData(this.image);
-            await this.mapData.loadJSON(this.jsonGraphPaths[0]);
-            this.player = new Player(this.mapData.getGraph());
+  async initcourse() {
+    //if(map === 1) {
+    this.image = new Image();
+    this.image.src = this.imagePaths[0];
+    this.mapData = new MapData(this.image);
+    await this.mapData.loadJSON(this.jsonGraphPaths[0]);
+    this.player = new Player(this.mapData.getGraph());
 
 
-            this.gameState.startNode = this.mapData.getNode(1);
-            this.gameState.playerNode = this.player.getCurrentNode();
-            this.gameState.image = this.image;
-            
-            let controlNodes = this.mapData.getControlNodes();
-            this.gameState.controlNodes = controlNodes;
-            
-            
-            
-            this.observers.update(this.gameState);
-            
-          //  }
-    }
+    this.gameState.startNode = this.mapData.getNode(1);
+    this.gameState.playerNode = this.player.getCurrentNode();
+    this.gameState.image = this.image;
 
-    move(x,y) {
-      this.player.move(x,y)
-      this.gameState.playerNode = this.player.getCurrentNode();
+    let controlNodes = this.mapData.getControlNodes();
+    this.gameState.controlNodes = controlNodes;
 
-      if(this.player.getCurrentNode() === this.mapData.getControlNodes()[parseInt(this.takenControls) + 1]) {
-        this.takenControls += 1;
-        
-        if(this.takenControls === Object.keys(this.mapData.getControlNodes()).length) {
-          this.gameState.completed = true; 
-          this.gameState.shortestPath = this.mapData.calculateShortest();
-          this.gameState.playerPath = this.player.getPath();
-        }
+
+
+    this.observers.update(this.gameState);
+
+    //  }
+  }
+
+  move(x, y) {
+    this.player.move(x, y)
+    this.gameState.playerNode = this.player.getCurrentNode();
+
+    if (this.player.getCurrentNode() === this.mapData.getControlNodes()[parseInt(this.takenControls) + 1]) {
+      this.takenControls += 1;
+
+      if (this.takenControls === Object.keys(this.mapData.getControlNodes()).length) {
+        this.gameState.completed = true;
+        this.gameState.shortestPath = this.mapData.calculateShortest();
+        this.gameState.playerPath = this.player.getPath();
       }
-
-
-      this.observers.update(this.gameState);
-
-      
     }
 
 
-    subscribe(observer) {
-        this.observers.subscribe(observer);
-      }
-    
-      // Method to unsubscribe observers
-      unsubscribe(observer) {
-        this.observers.unsubscribe(observer);
-      }
-    
+    this.observers.update(this.gameState);
+
+
+  }
+
+
+  subscribe(observer) {
+    this.observers.subscribe(observer);
+  }
+
+  // Method to unsubscribe observers
+  unsubscribe(observer) {
+    this.observers.unsubscribe(observer);
+  }
+
 }
 
 export default Game;

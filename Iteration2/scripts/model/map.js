@@ -9,7 +9,7 @@ class MapData {
 
     this.statGraph = new Graph();
 
-    this.controls = {10: 1, 20: 2, 30: 3, 37: 4, 70: 5, 101 : 6, 88 : 7 }
+    this.controls = { 10: 1, 20: 2, 30: 3, 37: 4, 70: 5, 101: 6, 88: 7 }
   }
 
   async loadJSON(jsonGraph) {
@@ -49,13 +49,13 @@ class MapData {
     return this.statGraph;
   }
 
-  getControlNodes(){
+  getControlNodes() {
     const nodes = {}
     Object.entries(this.controls).forEach(([nodeID, controlN]) => {
       nodes[controlN] = this.statGraph.getNode(nodeID)
     });
-        
-  return nodes;
+
+    return nodes;
   }
 
   getNode(nodeID) {

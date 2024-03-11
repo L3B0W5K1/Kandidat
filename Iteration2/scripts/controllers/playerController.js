@@ -11,10 +11,10 @@ class PlayerController {
 
     move(event) {
         this.rect = this.canvas.getBoundingClientRect();
-        const x = event.clientX - this.rect.left-5;
-        const y = event.clientY - this.rect.top-5;
+        const x = event.clientX - this.rect.left - 5;
+        const y = event.clientY - this.rect.top - 5;
 
-        this.game.move(x,y);
+        this.game.move(x, y);
     }
 
 }
