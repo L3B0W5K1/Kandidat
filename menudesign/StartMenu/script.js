@@ -1,6 +1,10 @@
+import Game from "../../Iteration2/scripts/model/game.js";
+
+
+
 document.getElementById('premade-course').addEventListener('click', function() {
   console.log('Play Pre-Made Course clicked');
-  // Add functionality for playing a pre-made course here
+  const game = new Game()
 });
 
 document.getElementById('random-course').addEventListener('click', function() {
