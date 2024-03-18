@@ -1,15 +1,38 @@
-const NODE_RADIUS = 10;
-const CANVAS_WIDTH = (canvas.width = 900);
-const CANVAS_HEIGHT = (canvas.height = 900);
+const NODE_RADIUS = 5;
 
-class View {
-  constructor(image, graph, ctx, controls) {
+class EditView {
+  constructor(image, graph, controls) {
     this.image = image;
     this.graph = graph;
-    this.ctx = ctx;
     this.controls = controls;
 
-    this.render();
+    this.menuContainer = document.createElement("div");
+    this.menuContainer.classList.add("menu-container");
+
+    this.save = document.createElement("button");
+    this.save.textContent = "Save";
+    this.save.classList.add("menu-button");
+
+    this.shortest = document.createElement("button");
+    this.shortest.textContent = "Show Shortest Path";
+    this.shortest.classList.add("menu-button");
+
+    this.menuContainer.appendChild(this.save);
+    this.menuContainer.appendChild(this.shortest);
+
+    this.canvas = document.createElement("canvas");
+    this.canvas.id = "canvas";
+    this.canvas.width = this.image.naturalWidth;
+    this.canvas.height = this.image.naturalHeight;
+    this.canvas.style.border = "5px solid black";
+    this.canvas.style.position = "absolute";
+    this.canvas.style.top = "50%";
+    this.canvas.style.left = "50%";
+    this.canvas.style.transform = "translate(-50%,-50%)";
+    this.ctx = this.canvas.getContext("2d");
+
+    // Append canvas to document body or any other container
+    document.body.appendChild(this.canvas);
   }
 
   // Draw the given node onto the canvas.
@@ -33,7 +56,6 @@ class View {
   }
 
   // Draw the edge between src and dest node with the given color.
-  // The weight will be displayed ontop of the edge.
   drawEdge(srcX, srcY, destX, destY, weight, color) {
     const angle = Math.atan2(destY - srcY, destX - srcX);
 
@@ -55,18 +77,28 @@ class View {
     this.ctx.closePath();
 
     // Display the weight
-    const textX = (startX + endX) / 2;
+   /* const textX = (startX + endX) / 2;
     const textY = (startY + endY) / 2;
     this.ctx.fillStyle = "black";
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.font = "20px Arial";
     this.ctx.fillText(weight, textX, textY);
+    */
   }
 
   // To render the entire graph onto the canvas.
   render() {
-    this.ctx.drawImage(this.image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    document.body.appendChild(this.menuContainer);
+
+      this.ctx.drawImage(
+      this.image,
+      0,
+      0,
+      this.image.naturalWidth,
+      this.image.naturalHeight
+    );
+
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
       this.drawNode(node.node);
     }
@@ -107,4 +139,4 @@ class View {
   }
 }
 
-export default View;
+export default EditView;

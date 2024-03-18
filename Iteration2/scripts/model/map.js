@@ -4,16 +4,12 @@ const mapImage = new Image();
 mapImage.src = "images/karta1.jpeg";
 
 class MapData {
-  constructor(jsonGraph = null) {
-    this.mapImage = new Image();
-    this.mapImage.src = "images/karta1.jpeg";
+  constructor(image) {
+    this.image = image;
 
     this.statGraph = new Graph();
-    if (jsonGraph != null) {
-      this.loadJSON(jsonGraph);
-    }
 
-    this.controls = { 3: 1, 4: 2, 8: 3, 12: 4, 17: 5 };
+    this.controls = { 10: 1, 20: 2, 30: 3, 37: 4, 70: 5, 101: 6, 88: 7 };
   }
 
   async loadJSON(jsonGraph) {
@@ -36,6 +32,10 @@ class MapData {
     });
   }
 
+  addControl(nodeID, controlNum) {
+    this.controls[nodeID] = controlNum;
+  }
+
   calculateShortest() {
     const path = this.statGraph.findShortestPath(this.controls);
 
@@ -47,6 +47,19 @@ class MapData {
   }
   getGraph() {
     return this.statGraph;
+  }
+
+  getControlNodes() {
+    const nodes = {};
+    Object.entries(this.controls).forEach(([nodeID, controlN]) => {
+      nodes[controlN] = this.statGraph.getNode(nodeID);
+    });
+
+    return nodes;
+  }
+
+  getNode(nodeID) {
+    return this.statGraph.getNode(nodeID);
   }
 }
 

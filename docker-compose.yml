@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  kandidat:
+    image: nginx
+    volumes:
+      - ./Iteration2:/usr/share/nginx/html
+    ports:
+      - "80:80"

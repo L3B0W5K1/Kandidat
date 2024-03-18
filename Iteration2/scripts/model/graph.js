@@ -32,24 +32,39 @@ class Graph {
         weight,
       };
     }
-
-    /* if (this.contains(startId)) {
-      for (const neighId of Object.values(neighbours)) {
-        if (this.contains(neighId)) {
-          const neighNode = this.getNode(neighId).node;
-          this.adjacencyList[startId].edges[neighId] = {};
-          this.adjacencyList[startId].edges[neighId] = {
-            node: neighNode,
-            weight,
-          };
-        }
-      }
-    }*/
   }
 
   //Checks if the nodeId is a key in the adjacencyList
   contains(nodeId) {
     return this.adjacencyList[nodeId] != undefined;
+  }
+
+  moveToNode(currentNode, posX, posY) {
+    let deltaX = null;
+    let deltaY = null;
+    let distance = Infinity;
+    let newDistance = null;
+    let nextNode = null;
+
+    for (const neighbour of Object.values(currentNode.edges)) {
+      deltaX = neighbour.node.posX - posX;
+      deltaY = neighbour.node.posY - posY;
+      newDistance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+      if (newDistance > 15) {
+        continue;
+      }
+
+      if (newDistance <= distance) {
+        distance = newDistance;
+        nextNode = neighbour;
+      }
+    }
+    if (nextNode !== null) {
+      let newNode = this.getNode(nextNode.node.id);
+      return newNode;
+    }
+    return null;
   }
 
   // Finds the shortest between two nodes.
@@ -92,7 +107,8 @@ class Graph {
 
     let path = [];
     for (let at = destId; at !== null; at = prev[at]) {
-      path.push(at);
+      let node = this.getNode(at);
+      path.push(node);
     }
     path.reverse();
 
@@ -124,6 +140,7 @@ class Graph {
       }
     }
 
+    path[parseInt(0)] = this.getNode(startNodeId);
     return path;
   }
 
