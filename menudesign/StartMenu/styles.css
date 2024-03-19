@@ -1,0 +1,43 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+}
+
+#header {
+  background: #000; /* Black background for the header */
+  color: #fff; /* White text color */
+  padding: 20px 0; /* Space above and below the title */
+  text-align: center; /* Center the title text */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the buttons horizontally */
+  justify-content: center; /* Center-align the buttons vertically */
+  height: calc(100% - 60px); /* Subtract the height of the header */
+  margin-top: 20px; /* Add some space below the header */
+}
+
+h1 {
+  margin: 0; /* No margin for the h1 to stick to the top */
+}
+
+button {
+  width: 400px;
+  margin-bottom: 20px; /* Margin to the bottom to space out buttons */
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #fff;
+  background: #000000;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #333333; /* Slight change to indicate hover */
+}
