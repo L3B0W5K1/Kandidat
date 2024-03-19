@@ -1,0 +1,75 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0; /* Light grey background */
+}
+
+.sidebar {
+  background: #000;
+  color: #fff;
+  padding: 0px;
+  height: 100vh;
+  width: 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+button {
+  display: block;
+  width: 200px;
+  margin: 40px 0;
+  padding: 4px;
+  font-size: 20px;
+  color: #fff;
+  background: #000000;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.active {
+  color: #000;
+  background: #fff;
+}
+
+button:hover {
+  background: #555;
+}
+.main-content {
+  margin-top: 150px;
+  margin-left: 200px; /* Adjusted to actual sidebar width */
+  padding: 20px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+#random-start-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#random-start-form label {
+  margin-bottom: 10px;
+}
+
+#random-start-form select,
+#random-start-form input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#play-button {
+  margin-top: 20px;
+  padding: 20px 50px;
+  font-size: 20px;
+  color: #fff;
+  background: #000;
+  border: none;
+  cursor: pointer;
+}

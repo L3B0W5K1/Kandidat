@@ -1,0 +1,59 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+}
+
+.sidebar {
+  background: #000;
+  color: #fff;
+  padding: 0px;
+  height: 100vh;
+  width: 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+button {
+  display: block;
+  width: 200px;
+  margin: 40px 0;
+  padding: 4px;
+  font-size: 20px;
+  color: #fff;
+  background: #000000;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.active {
+  color: #000;
+  background: #fff;
+}
+
+button:hover {
+  background: #555;
+}
+
+.main-content {
+  margin-left: 650px;
+  margin-top: 150px;
+  padding: 20px;
+}
+
+#course-dropdown {
+  padding: 10px;
+  width: 150px;
+  margin-left: 10px;
+}
+
+#play-course {
+  margin-top: 50px;
+  margin-left: 70px;
+  width: auto;
+  padding: 20px 50px;
+}
