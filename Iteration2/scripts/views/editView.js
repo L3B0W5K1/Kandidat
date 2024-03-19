@@ -1,10 +1,9 @@
 const NODE_RADIUS = 5;
 
 class EditView {
-  constructor(image, graph, controls) {
-    this.image = image;
-    this.graph = graph;
-    this.controls = controls;
+  constructor(game) {
+    
+    this.game = game;
 
     this.menuContainer = document.createElement("div");
     this.menuContainer.classList.add("menu-container");
@@ -20,23 +19,30 @@ class EditView {
     this.menuContainer.appendChild(this.save);
     this.menuContainer.appendChild(this.shortest);
 
-    this.canvas = document.createElement("canvas");
-    this.canvas.id = "canvas";
-    this.canvas.width = this.image.naturalWidth;
-    this.canvas.height = this.image.naturalHeight;
-    this.canvas.style.border = "5px solid black";
-    this.canvas.style.position = "absolute";
-    this.canvas.style.top = "50%";
-    this.canvas.style.left = "50%";
-    this.canvas.style.transform = "translate(-50%,-50%)";
-    this.ctx = this.canvas.getContext("2d");
+        // init the canvas
+        this.canvas = document.createElement("canvas");
+        this.canvas.id = "canvas";
+        this.canvas.width = 900;
+        this.canvas.height = 900;
+        this.canvas.style.border = "5px solid black";
+        this.canvas.style.position = "absolute";
+        this.canvas.style.top = "50%";
+        this.canvas.style.left = "50%";
+        this.canvas.style.transform = "translate(-50%,-50%)";
+        this.ctx = this.canvas.getContext("2d");
+
+        //Clears the entire html from rendering done by the menu
+        document.body.innerHTML="";
 
     // Append canvas to document body or any other container
     document.body.appendChild(this.canvas);
+
+    this.game.subscribe(this.update.bind(this));
+
   }
 
   // Draw the given node onto the canvas.
-  drawNode(node) {
+  drawNode(node, controls) {
     // Draw the node as a purple circle
     this.ctx.beginPath();
     this.ctx.arc(node.posX, node.posY, NODE_RADIUS, 0, Math.PI * 2);
@@ -46,12 +52,12 @@ class EditView {
     this.ctx.closePath();
 
     // Draw the number text in white color
-    if (node.id in this.controls) {
+    if (node.id in controls) {
       this.ctx.fillStyle = "white";
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
       this.ctx.font = "12px Arial";
-      this.ctx.fillText(this.controls[node.id], node.posX, node.posY);
+      this.ctx.fillText(controls[node.id], node.posX, node.posY);
     }
   }
 
@@ -87,54 +93,37 @@ class EditView {
     */
   }
 
-  // To render the entire graph onto the canvas.
-  render() {
-    document.body.appendChild(this.menuContainer);
+  update({graph, image, controlNodes}) {
 
-      this.ctx.drawImage(
-      this.image,
-      0,
-      0,
-      this.image.naturalWidth,
-      this.image.naturalHeight
-    );
+    const self = this;
 
-    for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
-      this.drawNode(node.node);
+    this.ctx.clearRect(0, 0,this.canvas.width, this.canvas.height);
+    this.canvas.width = image.naturalWidth;
+    this.canvas.height = image.naturalHeight;
+
+    if (image.complete) {
+      self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+  } else {
+      image.onload = function() {
+          self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+      };
+  }
+
+    for (const [id, node] of Object.entries(graph.adjacencyList)) {
+      this.drawNode(node.node, controlNodes);
     }
 
-    for (const startNode of Object.values(this.graph.adjacencyList)) {
+    for (const startNode of Object.values(graph.adjacencyList)) {
       for (const neighbour of Object.values(startNode.edges)) {
         this.drawEdge(
           startNode.node.posX,
           startNode.node.posY,
           neighbour.node.posX,
           neighbour.node.posY,
-          this.graph.getWeight(startNode.node.id, neighbour.node.id),
+          graph.getWeight(startNode.node.id, neighbour.node.id),
           "purple"
         );
       }
-    }
-  }
-
-  //Display the shortest path from the start node of the course
-  // to the last control node.
-  showShortest(path) {
-    for (let i = 0; i < path.length - 1; i++) {
-      let currentId = path[i];
-      let nextId = path[i + 1];
-
-      let currentNode = this.graph.getNode(currentId).node;
-      let nextNode = this.graph.getNode(nextId).node;
-
-      this.drawEdge(
-        currentNode.posX,
-        currentNode.posY,
-        nextNode.posX,
-        nextNode.posY,
-        this.graph.getWeight(currentId, nextId),
-        "red"
-      );
     }
   }
 }

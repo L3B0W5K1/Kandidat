@@ -3,6 +3,8 @@ class Node {
     this.id = id;
     this.posX = posX;
     this.posY = posY;
+    this.control = false;
+    this.controlN = null;
   }
 }
 

@@ -15,10 +15,10 @@ class GameView {
         this.canvas.width = 900;
         this.canvas.height = 900;
         this.canvas.style.border = "5px solid black";
-        this.canvas.style.position = "absolute";
-        this.canvas.style.top = "50%";
-        this.canvas.style.left = "50%";
-        this.canvas.style.transform = "translate(-50%,-50%)";
+       // this.canvas.style.position = "absolute";
+       // this.canvas.style.top = "50%";
+       // this.canvas.style.left = "50%";
+       // this.canvas.style.transform = "translate(-50%,-50%)";
         this.ctx = this.canvas.getContext("2d");
 
         //Clears the entire html from rendering done by the menu

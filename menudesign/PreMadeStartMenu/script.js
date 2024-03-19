@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("play-course").addEventListener("click", function () {
     const selectedCourse = courseDropdown.value;
-    console.log("Play", selectedCourse);
 
     let game = new Game();
     // Add functionality to play the selected course
