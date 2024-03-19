@@ -1,23 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Placeholder for adding courses dynamically, you would fetch this data or retrieve it from an array.
-  const courses = ['Course 1', 'Course 2', 'Course 3'];
+  const courses = ["Course 1", "Course 2", "Course 3"];
 
-  const courseDropdown = document.getElementById('course-dropdown');
-  courses.forEach(course => {
-    const option = document.createElement('option');
+  const courseDropdown = document.getElementById("course-dropdown");
+  courses.forEach((course) => {
+    const option = document.createElement("option");
     option.value = course;
     option.innerText = course;
     courseDropdown.appendChild(option);
   });
 
-  document.getElementById('add-course').addEventListener('click', function() {
+  document.getElementById("add-course").addEventListener("click", function () {
     // Functionality to add a new course
-    console.log('Add new course');
+    console.log("Add new course");
   });
 
-  document.getElementById('play-course').addEventListener('click', function() {
+  document.getElementById("play-course").addEventListener("click", function () {
     const selectedCourse = courseDropdown.value;
-    console.log('Play', selectedCourse);
+    console.log("Play", selectedCourse);
     // Add functionality to play the selected course
   });
 });
