@@ -26,23 +26,25 @@ class Graph {
     if (this.contains(startId) && this.contains(neighbourId)) {
       const neighNode = this.getNode(neighbourId).node;
 
-
       this.adjacencyList[startId].edges[neighbourId] = {};
       this.adjacencyList[startId].edges[neighbourId] = {
         node: neighNode,
         weight,
       };
 
-      if(this.adjacencyList[neighbourId].edges[startId] !== null) {
+      if (this.adjacencyList[neighbourId].edges[startId] !== null) {
         const startNode = this.getNode(startId).node;
 
-        this.adjacencyList[neighbourId].edges[startId] = {}
-        this.adjacencyList[neighbourId].edges[startId] = {node: startNode, weight}
+        this.adjacencyList[neighbourId].edges[startId] = {};
+        this.adjacencyList[neighbourId].edges[startId] = {
+          node: startNode,
+          weight,
+        };
       }
 
-      console.log(this.adjacencyList)
-      console.log(this.adjacencyList[startId].edges)
-      console.log(this.adjacencyList[neighbourId].edges)
+      console.log(this.adjacencyList);
+      console.log(this.adjacencyList[startId].edges);
+      console.log(this.adjacencyList[neighbourId].edges);
     }
   }
 
