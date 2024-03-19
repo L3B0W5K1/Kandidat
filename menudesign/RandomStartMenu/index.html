@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Start Menu</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <button id="play" class="active">Play</button>
+      <button id="map-list">Map List</button>
+      <button id="quit">Quit</button>
+    </div>
+
+    <div class="main-content">
+      <form id="random-start-form">
+        <div class="form-control">
+          <label for="map-dropdown">Choose map:</label>
+          <select id="map-dropdown">
+            <!-- Options will be dynamically loaded here -->
+          </select>
+          <!-- Assume the '+' button would trigger a modal or another action -->
+        </div>
+        <div class="form-control">
+          <label for="difficulty-dropdown">Choose Difficulty:</label>
+          <select id="difficulty-dropdown">
+            <!-- Options will be dynamically loaded here -->
+          </select>
+        </div>
+        <div class="form-control">
+          <label for="number-controls">Chosen Number of Controls:</label>
+          <input type="number" id="number-controls" value="17" />
+        </div>
+        <button type="submit" id="play-button">Play</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

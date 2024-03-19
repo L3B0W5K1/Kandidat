@@ -3,7 +3,7 @@ html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f0f0f0;
+  background: #f0f0f0; /* Light grey background */
 }
 
 .sidebar {
@@ -38,22 +38,38 @@ button.active {
 button:hover {
   background: #555;
 }
-
 .main-content {
-  margin-left: 650px;
   margin-top: 150px;
+  margin-left: 200px; /* Adjusted to actual sidebar width */
   padding: 20px;
 }
 
-#course-dropdown {
-  padding: 10px;
-  width: 150px;
-  margin-left: 10px;
+.form-control {
+  margin-bottom: 20px;
 }
 
-#play-course {
-  margin-top: 50px;
-  margin-left: 70px;
-  width: auto;
+#random-start-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#random-start-form label {
+  margin-bottom: 10px;
+}
+
+#random-start-form select,
+#random-start-form input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#play-button {
+  margin-top: 20px;
   padding: 20px 50px;
+  font-size: 20px;
+  color: #fff;
+  background: #000;
+  border: none;
+  cursor: pointer;
 }
