@@ -21,7 +21,7 @@ class Main {
     this.view = null;
     this.controller = null;
 
-    this.imagePaths = ["images/karta1.jpeg"];
+    this.imagePaths = [ "images/FourLevels.jpg"];
     this.images = [];
 
     this.jsonGraphPaths = ["graphs/standardGraph.json"];
@@ -41,7 +41,6 @@ class Main {
       this.images[i] = image;
 
       let mapData = new MapData(this.images[i]);
-      await mapData.loadJSON(this.jsonGraphPaths[i]);
 
       this.mapDatas[i] = mapData;
     }

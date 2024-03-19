@@ -21,7 +21,7 @@ class Game {
     };
 
     this.jsonGraphPaths = ["graphs/standardGraph.json"];
-    this.imagePaths = ["images/karta1.jpeg"];
+    this.imagePaths = ["images/FourLevels.jpg"];
     this.mapData = null;
 
     this.gameView = new GameView(this);
