@@ -41,7 +41,8 @@ class Game {
     //if(map === 1) {
     this.image = new Image();
     this.image.src = this.imagePaths[0];
-    this.mapData = new MapData(this.image);
+    var controlLocations = [1,5, 8,9]; // arbitrary example
+    this.mapData = new MapData(this.imagePaths[0], this.jsonGraphPaths[0], controlLocations);
     await this.mapData.loadJSON(this.jsonGraphPaths[0]);
     this.player = new Player(this.mapData.getGraph());
 

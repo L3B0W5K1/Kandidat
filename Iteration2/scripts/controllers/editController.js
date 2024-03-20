@@ -82,7 +82,7 @@ class EditController {
       let nodeAtPos = this.findNodeAtPosition(mouseUpX, mouseUpY);
       if (nodeAtPos !== null) {
         this.controlNodes[nodeAtPos.id] = this.controlN;
-        this.mapData.addControl(nodeAtPos.id, this.controlN);
+        this.mapData.addControl(nodeAtPos.id);
         this.controlN += 1;
       } else {
         this.id++;
