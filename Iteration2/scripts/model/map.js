@@ -122,7 +122,7 @@ class Controls {
 
 // Given a list of control locations,
 // add each control to the controls object with location as key and i as value.
-// Undefined, null, and duplicates will raise exceptions that are then logged in console.
+// Undefined, null, and duplicates will error exceptions that are then logged as warnings in console.
 addControls(controls){
   if (controls.length==0) return;
   if (typeof controls=== 'number') {
