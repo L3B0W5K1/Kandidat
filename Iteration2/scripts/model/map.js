@@ -59,11 +59,20 @@ class MapData {
         });
     });
   }
-
-
   // Wait for the graph then return it
   async loadGraph(jsonGraph){
      await this.loadJSON(jsonGraph);
+  }
+
+  // Given an x-coordinate, return which level of the map it is in (assuming multi-level map), minimum level is 1
+  // temporary function that only works for the specific map FourLevels
+  getLevel(x){
+    const level = 0;
+    while (x>0) {
+      x-=500; 
+      level += 1; 
+    }
+    return level;
   }
   
   //Calculate the shortest path through the controls in ascending order
