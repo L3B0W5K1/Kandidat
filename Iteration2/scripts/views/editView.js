@@ -2,22 +2,23 @@ const NODE_RADIUS = 5;
 
 class EditView {
   constructor(game) {
-    
+    document.body.innerHTML="";
+
     this.game = game;
+    
+    this.buttonContainer = document.createElement("div");
+    this.buttonContainer.classList.add("button-container");
 
-    this.menuContainer = document.createElement("div");
-    this.menuContainer.classList.add("menu-container");
-
+    // Create the save button
     this.save = document.createElement("button");
     this.save.textContent = "Save";
-    this.save.classList.add("menu-button");
+    this.save.classList.add("save");
 
-    this.shortest = document.createElement("button");
-    this.shortest.textContent = "Show Shortest Path";
-    this.shortest.classList.add("menu-button");
+    // Append the save button to the button container
+    this.buttonContainer.appendChild(this.save);
 
-    this.menuContainer.appendChild(this.save);
-    this.menuContainer.appendChild(this.shortest);
+    // Append the button container to the body
+    document.body.appendChild(this.buttonContainer);
 
         // init the canvas
         this.canvas = document.createElement("canvas");
@@ -26,13 +27,11 @@ class EditView {
         this.canvas.height = 900;
         this.canvas.style.border = "5px solid black";
         this.canvas.style.position = "absolute";
-        this.canvas.style.top = "50%";
-        this.canvas.style.left = "50%";
-        this.canvas.style.transform = "translate(-50%,-50%)";
+        this.canvas.style.top = "10%";
+        this.canvas.style.left = "10%";
         this.ctx = this.canvas.getContext("2d");
 
         //Clears the entire html from rendering done by the menu
-        document.body.innerHTML="";
 
     // Append canvas to document body or any other container
     document.body.appendChild(this.canvas);

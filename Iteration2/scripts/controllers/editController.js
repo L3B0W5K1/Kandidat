@@ -7,7 +7,6 @@ class EditController {
     this.canvas = this.view.canvas;
 
     this.save = this.view.save;
-    this.shortest = this.view.shortest;
 
     document.addEventListener("keydown", this.goToHomePage.bind(this));
 
@@ -16,7 +15,6 @@ class EditController {
     this.shortest = document.getElementById("shortest");
 */
     this.save.addEventListener("click", this.handleSave.bind(this));
-    this.shortest.addEventListener("click", this.handleShortest.bind(this));
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
     canvas.addEventListener("mouseup", this.handleMouseup.bind(this));
@@ -33,16 +31,7 @@ class EditController {
   // This is more of a tool to easily create a standard graph for
   // multiple different images.
   handleSave() {
-    const jsonData = JSON.stringify(this.graph.adjacencyList);
-    const blob = new Blob([jsonData], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "graph_data.json";
-    link.click();
-
-    URL.revokeObjectURL(url);
+    this.game.handleSave();
   }
 
   // Fires when the user pushes down the mouse button.

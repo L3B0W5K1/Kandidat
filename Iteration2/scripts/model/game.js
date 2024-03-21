@@ -20,8 +20,8 @@ class Game {
       playerPath: null,
     };
 
-    this.jsonGraphPaths = ["graphs/standardGraph.json"];
-    this.imagePaths = ["images/FourLevels.jpg"];
+    this.jsonGraphPaths = ["graphs/standardGraph.json","../graphs/FourLevelsGraph.json"];
+    this.imagePaths = ["images/karta1.jpeg", "images/FourLevels.jpg"];
     this.mapData = null;
 
     this.gameView = new GameView(this);
@@ -40,9 +40,9 @@ class Game {
   async initcourse() {
     //if(map === 1) {
     this.image = new Image();
-    this.image.src = this.imagePaths[0];
+    this.image.src = this.imagePaths[1];
     this.mapData = new MapData(this.image);
-    await this.mapData.loadJSON(this.jsonGraphPaths[0]);
+    await this.mapData.loadJSON(this.jsonGraphPaths[1]);
     this.player = new Player(this.mapData.getGraph());
 
     this.gameState.startNode = this.mapData.getNode(1);

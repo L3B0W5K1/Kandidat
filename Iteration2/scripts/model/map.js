@@ -20,8 +20,8 @@ class MapData {
           return response.json();
         })
         .then((jsonData) => {
-          this.statGraph.adjacencyList = jsonData;
-          this.getControls();
+          this.statGraph.adjacencyList = jsonData.adjacencyList;
+          this.setControlsFromJSON();
           resolve();
         })
         .catch((error) => {
@@ -31,8 +31,7 @@ class MapData {
     });
   }
 
-  getControls(){
-
+  setControlsFromJSON(){
     for(const [id,node] of Object.entries(this.statGraph.adjacencyList)) {
       if (node.node.control) {
         this.controls[id] = node.node.controlN;
