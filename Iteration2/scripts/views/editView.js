@@ -2,10 +2,10 @@ const NODE_RADIUS = 5;
 
 class EditView {
   constructor(game) {
-    document.body.innerHTML="";
+    document.body.innerHTML = "";
 
     this.game = game;
-    
+
     this.buttonContainer = document.createElement("div");
     this.buttonContainer.classList.add("button-container");
 
@@ -20,24 +20,23 @@ class EditView {
     // Append the button container to the body
     document.body.appendChild(this.buttonContainer);
 
-        // init the canvas
-        this.canvas = document.createElement("canvas");
-        this.canvas.id = "canvas";
-        this.canvas.width = 900;
-        this.canvas.height = 900;
-        this.canvas.style.border = "5px solid black";
-        this.canvas.style.position = "absolute";
-        this.canvas.style.top = "10%";
-        this.canvas.style.left = "10%";
-        this.ctx = this.canvas.getContext("2d");
+    // init the canvas
+    this.canvas = document.createElement("canvas");
+    this.canvas.id = "canvas";
+    this.canvas.width = 900;
+    this.canvas.height = 900;
+    this.canvas.style.border = "5px solid black";
+    this.canvas.style.position = "absolute";
+    this.canvas.style.top = "10%";
+    this.canvas.style.left = "10%";
+    this.ctx = this.canvas.getContext("2d");
 
-        //Clears the entire html from rendering done by the menu
+    //Clears the entire html from rendering done by the menu
 
     // Append canvas to document body or any other container
     document.body.appendChild(this.canvas);
 
     this.game.subscribe(this.update.bind(this));
-
   }
 
   // Draw the given node onto the canvas.
@@ -82,7 +81,7 @@ class EditView {
     this.ctx.closePath();
 
     // Display the weight
-   /* const textX = (startX + endX) / 2;
+    /* const textX = (startX + endX) / 2;
     const textY = (startY + endY) / 2;
     this.ctx.fillStyle = "black";
     this.ctx.textAlign = "center";
@@ -92,21 +91,26 @@ class EditView {
     */
   }
 
-  update({graph, image, controlNodes}) {
-
+  update({ graph, image, controlNodes }) {
     const self = this;
 
-    this.ctx.clearRect(0, 0,this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.canvas.width = image.naturalWidth;
     this.canvas.height = image.naturalHeight;
 
     if (image.complete) {
       self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
-  } else {
-      image.onload = function() {
-          self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+    } else {
+      image.onload = function () {
+        self.ctx.drawImage(
+          image,
+          0,
+          0,
+          image.naturalWidth,
+          image.naturalHeight
+        );
       };
-  }
+    }
 
     for (const [id, node] of Object.entries(graph.adjacencyList)) {
       this.drawNode(node.node, controlNodes);

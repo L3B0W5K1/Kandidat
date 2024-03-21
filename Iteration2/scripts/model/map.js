@@ -1,6 +1,5 @@
 import Graph from "./graph.js";
 
-
 class MapData {
   constructor(image) {
     this.image = image;
@@ -31,8 +30,8 @@ class MapData {
     });
   }
 
-  setControlsFromJSON(){
-    for(const [id,node] of Object.entries(this.statGraph.adjacencyList)) {
+  setControlsFromJSON() {
+    for (const [id, node] of Object.entries(this.statGraph.adjacencyList)) {
       if (node.node.control) {
         this.controls[id] = node.node.controlN;
       }
@@ -50,15 +49,14 @@ class MapData {
     return null;
   }
 
-
   addControl(nodeID, controlN) {
-    if(this.statGraph.setToControl(nodeID, controlN)) {
-    this.controls[nodeID] = controlN;
+    if (this.statGraph.setToControl(nodeID, controlN)) {
+      this.controls[nodeID] = controlN;
     }
   }
 
-  addNode(id,x,y) {
-    this.statGraph.addNode(id,x,y);
+  addNode(id, x, y) {
+    this.statGraph.addNode(id, x, y);
   }
 
   addEdge(startID, destID, distance) {

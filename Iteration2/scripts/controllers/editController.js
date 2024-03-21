@@ -3,7 +3,6 @@ class EditController {
     this.game = game;
     this.view = view;
 
-
     this.canvas = this.view.canvas;
 
     this.save = this.view.save;
@@ -62,7 +61,13 @@ class EditController {
       // else we will create an edge.
       // To determin which nodes we will use the findNodeAtPosition() function.
     } else {
-      this.game.addEdge(this.mouseDownX, this.mouseDownY, mouseUpX, mouseUpY, distance);
+      this.game.addEdge(
+        this.mouseDownX,
+        this.mouseDownY,
+        mouseUpX,
+        mouseUpY,
+        distance
+      );
     }
   }
 
@@ -70,7 +75,6 @@ class EditController {
   // the mouse inside the radius of any node in the graph.
   // The node radius = 10.
   // If no node is found, it will return null.
-
 
   goToHomePage() {
     this.game.goToHomePage();
