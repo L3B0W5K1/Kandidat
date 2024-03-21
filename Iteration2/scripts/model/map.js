@@ -74,6 +74,24 @@ class MapData {
     }
     return level;
   }
+
+  // Check if flag exists on edge between nodes, otherwise instantiates empty list of flags
+  flagCheck(node1,node2){ 
+    if (this.graph.adjacencyList[node1].edges[node2]['flags']== undefined) 
+      {this.graph.adjacencyList[node1].edges[node2]['flags']=[];} 
+  }
+
+  // Add separate flags to edges between nodes in both directions
+  addFlagBothways(node1, node2, flag1, flag2) {
+    this.addFlagSingle(node1, node2, flag1);
+    this.addFlagSingle(node2, node1, flag2);
+  }
+  // Add flag to edge between nodes, going from first to second arguement
+  addFlagSingle(node1, node2, flag) { // Version for one-way flag
+    this.flagCheck(node1,node2);
+    this.graph.adjacencyList[node1].edges[node2]['flags'].push(flag);
+
+  }
   
   //Calculate the shortest path through the controls in ascending order
   calculateShortest() {
@@ -128,6 +146,8 @@ class Controls {
   get obj(){
     return this._obj;
   }
+
+
 
 // Given a list of control locations,
 // add each control to the controls object with location as key and i as value.
