@@ -20,6 +20,9 @@ class GameView {
         this.canvas.style.left = "50%";
         this.canvas.style.transform = "translate(-50%,-50%)";
         this.ctx = this.canvas.getContext("2d");
+
+        //Clears the entire html from rendering done by the menu
+        document.body.innerHTML="";
     
         // Append canvas to document body or any other container
         document.body.appendChild(this.canvas);
@@ -29,8 +32,16 @@ class GameView {
         const playerObservers = new Observable();
         const mapObservers = new Observable();
         */
+        this.menuContainer = document.createElement("div");
         this.game.subscribe(this.update.bind(this));
-    }
+        this.menuButton = document.createElement('button');
+        this.menuButton.setAttribute('id','menuButton')
+        this.menuButton.textContent="Quit";
+
+        this.menuContainer.appendChild(this.menuButton);
+
+
+      }
     //Render the startNode as a triangle
     renderStartNode(startNode, angle, fstControl) {
         

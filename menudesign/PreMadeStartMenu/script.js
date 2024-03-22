@@ -1,3 +1,5 @@
+import Game from '../../Iteration2/scripts/model/game.js'
+
 document.addEventListener("DOMContentLoaded", function () {
   // Placeholder for adding courses dynamically, you would fetch this data or retrieve it from an array.
   const courses = ["Course 1", "Course 2", "Course 3"];
@@ -10,14 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
     courseDropdown.appendChild(option);
   });
 
-  document.getElementById("add-course").addEventListener("click", function () {
-    // Functionality to add a new course
-    console.log("Add new course");
-  });
 
   document.getElementById("play-course").addEventListener("click", function () {
     const selectedCourse = courseDropdown.value;
     console.log("Play", selectedCourse);
+
+    let game = new Game();
     // Add functionality to play the selected course
   });
 });

@@ -4,6 +4,7 @@ import Observable from "./observers.js";
 import PlayerController from "../controllers/playerController.js";
 import GameView from "../views/gameView.js";
 import PlayerView from "../views/playerView.js";
+import GameController from "../controllers/gameController.js";
 
 class Game {
   constructor(map) {
@@ -20,16 +21,20 @@ class Game {
     };
 
     this.jsonGraphPaths = ["graphs/standardGraph.json"];
-    this.imagePaths = ["images/karta1.jpeg"];
+    this.imagePaths = ["images/FourLevels.jpg"];
     this.mapData = null;
 
-    this.view = new GameView(this);
-    this.controller = new PlayerController(this);
+    this.gameView = new GameView(this);
     this.playerView = new PlayerView(this);
+
+    this.playerController = new PlayerController(this);
+    this.gameController = new GameController(this,this.gameView);
+
     this.map = map;
     this.takenControls = 0;
 
     this.initcourse();
+    
   }
 
   async initcourse() {
@@ -73,6 +78,15 @@ class Game {
     }
 
     this.observers.update(this.gameState);
+  }
+
+  goToHomePage(){
+    this.gameController = null;
+    this.gameView = null;
+    this.playerView = null;
+    this.playerController = null;
+    
+    window.location.href = 'index.html'
   }
 
   subscribe(observer) {
