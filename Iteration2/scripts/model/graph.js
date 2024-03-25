@@ -45,10 +45,10 @@ class Graph {
   }
 
   setToControl(nodeID, controlN) {
-    if(this.adjacencyList[nodeID] !== undefined) {
-    this.adjacencyList[nodeID].node.control = true;
-    this.adjacencyList[nodeID].node.controlN = controlN;
-    return true;
+    if (this.adjacencyList[nodeID] !== undefined) {
+      this.adjacencyList[nodeID].node.control = true;
+      this.adjacencyList[nodeID].node.controlN = controlN;
+      return true;
     }
     return false;
   }

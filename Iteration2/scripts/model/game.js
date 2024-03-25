@@ -20,7 +20,10 @@ class Game {
       playerPath: null,
     };
 
-    this.jsonGraphPaths = ["graphs/standardGraph.json","../graphs/FourLevelsGraph.json"];
+    this.jsonGraphPaths = [
+      "graphs/standardGraph.json",
+      "../graphs/FourLevelsGraph.json",
+    ];
     this.imagePaths = ["images/karta1.jpeg", "images/FourLevels.jpg"];
     this.mapData = null;
 
@@ -28,13 +31,12 @@ class Game {
     this.playerView = new PlayerView(this);
 
     this.playerController = new PlayerController(this);
-    this.gameController = new GameController(this,this.gameView);
+    this.gameController = new GameController(this, this.gameView);
 
     this.map = map;
     this.takenControls = 0;
 
     this.initcourse();
-    
   }
 
   async initcourse() {
@@ -80,13 +82,13 @@ class Game {
     this.observers.update(this.gameState);
   }
 
-  goToHomePage(){
+  goToHomePage() {
     this.gameController = null;
     this.gameView = null;
     this.playerView = null;
     this.playerController = null;
-    
-    window.location.href = 'index.html'
+
+    window.location.href = "index.html";
   }
 
   subscribe(observer) {
