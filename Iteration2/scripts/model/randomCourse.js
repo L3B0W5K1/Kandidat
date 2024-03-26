@@ -1,41 +1,49 @@
 class randomCourse {
   constructor() {}
 
-  //getting a random number of controls(temp)
-  getRandomNumber(max, min) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
   //shuffle the order of elements
   shuffleArray(array) {
     return array.sort(() => Math.random() - 0.5);
-  }   
+  }
 
   //choose number of controls and their difficulty.
-  courseSpecifications(difficulty) {
-    var numberOfControls;
+  courseSpecifications(difficulty, controlNumber) {
     let controls = [];
 
     //the percentage of each type of difficulty
     if (difficulty == "Hard") {
-      numberOfControls = this.getRandomNumber(35, 25);
-      var hardControls = Math.round(numberOfControls * 0.4);
-      var mediumControls = Math.round(numberOfControls * 0.3);
-      var easyControls = Math.round(numberOfControls * 0.3);
+      var hardControls = Math.round(controlNumber * 0.4);
+      var mediumControls = Math.round(controlNumber * 0.3);
+      var easyControls = Math.round(controlNumber * 0.3);
     }
 
     if (difficulty == "Medium") {
-      numberOfControls = this.getRandomNumber(30, 20);
-      var hardControls = Math.round(numberOfControls * 0.1);
-      var mediumControls = Math.round(numberOfControls * 0.6);
-      var easyControls = Math.round(numberOfControls * 0.3);
+      var hardControls = Math.round(controlNumber * 0);
+      var mediumControls = Math.round(controlNumber * 0.6);
+      var easyControls = Math.round(controlNumber * 0.4);
     }
 
     if (difficulty == "Easy") {
-      numberOfControls = this.getRandomNumber(15, 25);
-      var hardControls = Math.round(numberOfControls * 0);
-      var mediumControls = Math.round(numberOfControls * 0.1);
-      var easyControls = Math.round(numberOfControls * 0.9);
+      var hardControls = Math.round(controlNumber * 0);
+      var mediumControls = Math.round(controlNumber * 0);
+      var easyControls = Math.round(controlNumber * 1);
+    }
+
+    var totalControls = hardControls + mediumControls + easyControls;
+
+    //to make sure the number of controls is exactly what the user inputs
+    if (totalControls !== controlNumber) {
+      let diff = Math.abs(totalControls - controlNumber);
+
+      if (totalControls < controlNumber) {
+        easyControls += diff;
+      } else {
+        if (hardControls > 0) {
+          mediumControls -= diff;
+        } else {
+          easyControls -= diff;
+        }
+      }
     }
 
     //loops that put a letter in the list for the type of control it is
