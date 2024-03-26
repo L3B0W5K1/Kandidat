@@ -1,8 +1,5 @@
 import Graph from "./graph.js";
 
-const mapImage = new Image();
-mapImage.src = "images/karta1.jpeg";
-
 class MapData {
   constructor(image) {
     this.image = image;
@@ -22,7 +19,8 @@ class MapData {
           return response.json();
         })
         .then((jsonData) => {
-          this.statGraph.adjacencyList = jsonData;
+          this.statGraph.adjacencyList = jsonData.adjacencyList;
+          this.setControlsFromJSON();
           resolve();
         })
         .catch((error) => {
@@ -32,8 +30,37 @@ class MapData {
     });
   }
 
-  addControl(nodeID, controlNum) {
-    this.controls[nodeID] = controlNum;
+  setControlsFromJSON() {
+    for (const [id, node] of Object.entries(this.statGraph.adjacencyList)) {
+      if (node.node.control) {
+        this.controls[id] = node.node.controlN;
+      }
+    }
+  }
+
+  findNodeAtPosition(x, y) {
+    for (const [id, nodeData] of Object.entries(this.statGraph.adjacencyList)) {
+      const node = nodeData.node;
+      const distance = Math.sqrt((node.posX - x) ** 2 + (node.posY - y) ** 2);
+      if (distance <= 5) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  addControl(nodeID, controlN) {
+    if (this.statGraph.setToControl(nodeID, controlN)) {
+      this.controls[nodeID] = controlN;
+    }
+  }
+
+  addNode(id, x, y) {
+    this.statGraph.addNode(id, x, y);
+  }
+
+  addEdge(startID, destID, distance) {
+    this.statGraph.addEdge(startID, destID, distance);
   }
 
   calculateShortest() {

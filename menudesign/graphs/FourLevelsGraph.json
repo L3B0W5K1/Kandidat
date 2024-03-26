@@ -1,0 +1,108 @@
+{
+  "adjacencyList": {
+    "1": {
+      "node": {
+        "id": 1,
+        "posX": 493.8046875,
+        "posY": 115.203125,
+        "control": true,
+        "controlN": 1
+      },
+      "edges": {
+        "3": {
+          "node": {
+            "id": 3,
+            "posX": 461.8046875,
+            "posY": 145.203125,
+            "control": false,
+            "controlN": null
+          },
+          "weight": 41.012193308819754
+        },
+        "4": {
+          "node": {
+            "id": 4,
+            "posX": 541.8046875,
+            "posY": 104.203125,
+            "control": true,
+            "controlN": 2
+          },
+          "weight": 53.36665625650534
+        }
+      }
+    },
+    "2": {
+      "node": {
+        "id": 2,
+        "posX": 546.8046875,
+        "posY": 139.203125,
+        "control": false,
+        "controlN": null
+      },
+      "edges": {
+        "4": {
+          "node": {
+            "id": 4,
+            "posX": 541.8046875,
+            "posY": 104.203125,
+            "control": true,
+            "controlN": 2
+          },
+          "weight": 36.345563690772494
+        }
+      }
+    },
+    "3": {
+      "node": {
+        "id": 3,
+        "posX": 461.8046875,
+        "posY": 145.203125,
+        "control": false,
+        "controlN": null
+      },
+      "edges": {
+        "1": {
+          "node": {
+            "id": 1,
+            "posX": 493.8046875,
+            "posY": 115.203125,
+            "control": true,
+            "controlN": 1
+          },
+          "weight": 41.012193308819754
+        }
+      }
+    },
+    "4": {
+      "node": {
+        "id": 4,
+        "posX": 541.8046875,
+        "posY": 104.203125,
+        "control": true,
+        "controlN": 2
+      },
+      "edges": {
+        "1": {
+          "node": {
+            "id": 1,
+            "posX": 493.8046875,
+            "posY": 115.203125,
+            "control": true,
+            "controlN": 1
+          },
+          "weight": 53.36665625650534
+        },
+        "2": {
+          "node": {
+            "id": 2,
+            "posX": 546.8046875,
+            "posY": 139.203125,
+            "control": false,
+            "controlN": null
+          },
+          "weight": 36.345563690772494
+        }
+      }
+    }
+  }
+}
