@@ -171,10 +171,15 @@ class GameView {
     shortestPath,
     playerPath,
   }) {
+
+    
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.canvas.width = image.naturalWidth;
     this.canvas.height = image.naturalHeight;
     this.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+
+    
     const controlNodeValues = Object.values(controlNodes);
     const fstControl = controlNodeValues[0];
 

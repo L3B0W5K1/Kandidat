@@ -1,4 +1,4 @@
-import EditMode from "../../Iteration2/scripts/model/editMode.js";
+import EditMode from "../../Iteration3/scripts/model/editMode.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Placeholder for adding courses dynamically, you would fetch this data or retrieve it from an array.
