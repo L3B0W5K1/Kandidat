@@ -34,12 +34,17 @@ class MapData {
   }
   set graph(jsonGraph) {
     this._graph.adjacencyList = this.loadGraph(jsonGraph);
-    
   }
   set controls(controlLocations) {
     this._controls= new Controls(controlLocations);
   }
 
+
+   // Wait for the graph then return it,
+   // It may still be necessary to set the graph with 'await' after instantiating mapData
+  async loadGraph(jsonGraph){
+    await this.loadJSON(jsonGraph);
+ }
   //Load graph from JSON
   async loadJSON(jsonGraph) {
     return new Promise((resolve, reject) => {
@@ -51,8 +56,9 @@ class MapData {
           return response.json();
         })
         .then((jsonData) => {
-          this.graph.adjacencyList = jsonData.adjacencyList;
-          this.setControlsFromJSON();
+          console.log(jsonData);
+          this.graph.adjacencyList = jsonData;
+          this.setControlsFromJSON(jsonData);
 
           resolve();
         })
@@ -62,10 +68,7 @@ class MapData {
         });
     });
   }
-  // Wait for the graph then return it
-  async loadGraph(jsonGraph){
-     await this.loadJSON(jsonGraph);
-  }
+ 
 
   // Given an x-coordinate, return which level of the map it is in (assuming multi-level map), minimum level is 1
   // temporary function that only works for the specific map FourLevels
@@ -85,8 +88,8 @@ class MapData {
       {this.graph.adjacencyList[node1].edges[node2]['flags']=[];}
   }
 
-  setControlsFromJSON() {
-    for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
+  setControlsFromJSON(jsonGraph) {
+    for (const [id, node] of Object.entries(jsonGraph)) {
       if (node.node.control) {
         this.addControls(node.node.controlN);
       }
