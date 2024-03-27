@@ -91,18 +91,18 @@ class EditView {
     */
   }
 
-  update({ graph, image, controlNodes }) {
-    const self = this;
+  displayMap(image) {
+    this.self = this
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.canvas.width = image.naturalWidth;
     this.canvas.height = image.naturalHeight;
 
     if (image.complete) {
-      self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+      this.self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
     } else {
       image.onload = function () {
-        self.ctx.drawImage(
+        this.self.ctx.drawImage(
           image,
           0,
           0,
@@ -111,7 +111,13 @@ class EditView {
         );
       };
     }
+  }
 
+  update({ graph, image, controlNodes }) {
+   
+    const timeOut = setTimeout(() => {
+      this.displayMap(image)
+    }, 10);
     for (const [id, node] of Object.entries(graph.adjacencyList)) {
       this.drawNode(node.node, controlNodes);
     }

@@ -1,4 +1,4 @@
-import Game from "../../Iteration2/scripts/model/game.js";
+import Game from "../../Iteration3/scripts/model/game.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Placeholder for adding courses dynamically, you would fetch this data or retrieve it from an array.
