@@ -82,7 +82,8 @@ class MapData {
   // Check if flag exists on edge between nodes, otherwise instantiates empty list of flags
   flagCheck(node1,node2){ 
     if (this.graph.adjacencyList[node1].edges[node2]['flags']== undefined) 
-      {this.graph.adjacencyList[node1].edges[node2]['flags']=[];} 
+      {this.graph.adjacencyList[node1].edges[node2]['flags']=[];}
+  }
 
   setControlsFromJSON() {
     for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
