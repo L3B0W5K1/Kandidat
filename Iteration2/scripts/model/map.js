@@ -8,6 +8,7 @@ import Graph from "./graph.js";
   //  MapData,
   //  Controls
 
+
 // The Map class stores a visual, a graph, and an object of the Controls class
 // 
 class MapData {
@@ -50,7 +51,9 @@ class MapData {
           return response.json();
         })
         .then((jsonData) => {
-          this.graph.adjacencyList = jsonData;
+          this.graph.adjacencyList = jsonData.adjacencyList;
+          this.setControlsFromJSON();
+
           resolve();
         })
         .catch((error) => {
@@ -75,10 +78,37 @@ class MapData {
     return level;
   }
 
+
   // Check if flag exists on edge between nodes, otherwise instantiates empty list of flags
   flagCheck(node1,node2){ 
     if (this.graph.adjacencyList[node1].edges[node2]['flags']== undefined) 
       {this.graph.adjacencyList[node1].edges[node2]['flags']=[];} 
+
+  setControlsFromJSON() {
+    for (const [id, node] of Object.entries(this.graph.adjacencyList)) {
+      if (node.node.control) {
+        this.addControls(node.node.controlN);
+      }
+    }
+  }
+
+  findNodeAtPosition(x, y) {
+    for (const [id, nodeData] of Object.entries(this.graph.adjacencyList)) {
+      const node = nodeData.node;
+      const distance = Math.sqrt((node.posX - x) ** 2 + (node.posY - y) ** 2);
+      if (distance <= 5) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  addNode(id, x, y) {
+    this.graph.addNode(id, x, y);
+  }
+
+  addEdge(startID, destID, distance) {
+    this.graph.addEdge(startID, destID, distance);
   }
 
   // Add separate flags to edges between nodes in both directions

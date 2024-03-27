@@ -20,30 +20,34 @@ class Game {
       playerPath: null,
     };
 
-    this.jsonGraphPaths = ["graphs/standardGraph.json"];
-    this.imagePaths = ["images/FourLevels.jpg"];
+    this.jsonGraphPaths = [
+      "graphs/standardGraph.json",
+      "../graphs/FourLevelsGraph.json",
+    ];
+    this.imagePaths = ["images/karta1.jpeg", "images/FourLevels.jpg"];
     this.mapData = null;
 
     this.gameView = new GameView(this);
     this.playerView = new PlayerView(this);
 
     this.playerController = new PlayerController(this);
-    this.gameController = new GameController(this,this.gameView);
+    this.gameController = new GameController(this, this.gameView);
 
     this.map = map;
     this.takenControls = 0;
 
     this.initcourse();
-    
   }
 
   async initcourse() {
     //if(map === 1) {
     this.image = new Image();
-    this.image.src = this.imagePaths[0];
+    this.image.src = this.imagePaths[1];
+    
     var controlLocations = [1,5, 8,9]; // arbitrary example
-    this.mapData = new MapData(this.imagePaths[0], this.jsonGraphPaths[0], controlLocations);
+    this.mapData = new MapData(this.imagePaths[1], this.jsonGraphPaths[0], controlLocations);
     await this.mapData.loadJSON(this.jsonGraphPaths[0]);
+
     this.player = new Player(this.mapData.getGraph());
 
     this.gameState.startNode = this.mapData.getNode(1);
@@ -81,13 +85,13 @@ class Game {
     this.observers.update(this.gameState);
   }
 
-  goToHomePage(){
+  goToHomePage() {
     this.gameController = null;
     this.gameView = null;
     this.playerView = null;
     this.playerController = null;
-    
-    window.location.href = 'index.html'
+
+    window.location.href = "index.html";
   }
 
   subscribe(observer) {
