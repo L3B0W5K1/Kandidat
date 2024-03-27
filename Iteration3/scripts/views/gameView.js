@@ -161,28 +161,6 @@ class GameView {
     }
   }
 
-  displayMap(image) {
-    this.self = this
-
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.canvas.width = image.naturalWidth;
-    this.canvas.height = image.naturalHeight;
-
-    if (image.complete) {
-      this.self.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
-    } else {
-      image.onload = function () {
-        this.self.ctx.drawImage(
-          image,
-          0,
-          0,
-          image.naturalWidth,
-          image.naturalHeight
-        );
-      };
-    }
-  }
-  
   // update function which is called from the observerable.
   update({
     startNode,
@@ -194,9 +172,12 @@ class GameView {
     playerPath,
   }) {
 
-    const timeOut = setTimeout(() => {
-      this.displayMap(image)
-    }, 10);
+    
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.canvas.width = image.naturalWidth;
+    this.canvas.height = image.naturalHeight;
+    this.ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
 
     
     const controlNodeValues = Object.values(controlNodes);

@@ -22,6 +22,7 @@ class Game {
 
     this.jsonGraphPaths = [
       "graphs/standardGraph.json",
+      "../graphs/3.json",
       "../graphs/FourLevelsGraph.json",
     ];
     this.imagePaths = ["images/karta1.jpeg", "images/FourLevels.jpg"];
