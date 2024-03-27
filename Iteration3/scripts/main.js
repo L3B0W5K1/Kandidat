@@ -39,8 +39,9 @@ class Main {
       let image = new Image();
       image.src = this.imagePaths[i];
       this.images[i] = image;
-
-      let mapData = new MapData(this.images[i]);
+      var controlLocations = [1,5,8,9]; //arbitrary example
+      let mapData = new MapData(this.imagePaths[i], this.jsonGraphPaths[i], controlLocations);
+      await mapData.loadJSON(this.jsonGraphPaths[0]);
 
       this.mapDatas[i] = mapData;
     }

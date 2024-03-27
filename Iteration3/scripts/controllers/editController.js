@@ -56,6 +56,7 @@ class EditController {
 
     // if the user has barely moved the mouse, then we create a node.
     if (distance < 2) {
+
       this.game.addNode(mouseUpX, mouseUpY);
 
       // else we will create an edge.
